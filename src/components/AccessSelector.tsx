@@ -1,5 +1,6 @@
 import { createStyles, Select, SelectProps } from "@mantine/core";
 import { HiChevronDown } from "react-icons/hi";
+import { PERMISSION_LEVEL } from "../types";
 
 const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
   const { classes } = useStyles();
@@ -8,12 +9,12 @@ const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
       {...props}
       tabIndex={0}
       variant="unstyled"
-      defaultValue={"no-access"}
+      defaultValue={props.defaultValue || PERMISSION_LEVEL.VIEW}
       data={[
-        { value: "full", label: "Full Access" },
-        { value: "edit", label: "Can Edit" },
-        { value: "view", label: "Can View" },
-        { value: "no-access", label: "No Access" },
+        { value: PERMISSION_LEVEL.FULL, label: "Full Access" },
+        { value: PERMISSION_LEVEL.EDIT, label: "Can Edit" },
+        { value: PERMISSION_LEVEL.VIEW, label: "Can View" },
+        { value: PERMISSION_LEVEL.NO_ACCESS, label: "No Access" },
       ]}
       size="xs"
       rightSection={<HiChevronDown color="gray" />}

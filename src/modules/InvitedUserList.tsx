@@ -3,6 +3,7 @@ import OSlashLogo from "../assets/oslash_logo.png";
 import AccessSelector from "../components/AccessSelector";
 import IconTextGroup from "../components/IconTextGroup";
 import ModalSection from "../components/ModalSection";
+import { PERMISSION_LEVEL } from "../types";
 
 interface Props {}
 
@@ -31,7 +32,7 @@ const InvitedUserList = (props: Props) => {
                 <Avatar radius={"xl"} src={user.avatar} alt={user.username} />
               }
             />
-            <AccessSelector />
+            <AccessSelector defaultValue={PERMISSION_LEVEL.FULL}/>
           </Group>
         ))}
       </Stack>

@@ -8,5 +8,6 @@ export const convertToMultiSelectData = (data: Array<User>) => {
     email: user.email,
     value: user.id,
     group: user.users?.length ? 'Select a group' : 'Select a user',
+    users: user.users
   }));
 };

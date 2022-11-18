@@ -27,8 +27,10 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
   ({ id, avatar, label, users, ...others }: ItemProps, ref) => (
     <div ref={ref} {...others}>
       <Group noWrap spacing={"xs"}>
-        {users?.length ? (
-          <Avatar size={"sm"} src={avatar} />
+        {users && users.length > 0  ? (
+          <Avatar size={"sm"} src={avatar} color='violet'>
+            {avatar}
+          </Avatar>
         ) : (
           <Avatar size={"sm"} src={avatar} radius="xl" />
         )}
