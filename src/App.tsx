@@ -6,6 +6,7 @@ import { HiShare, HiGlobe } from "react-icons/hi";
 import "./App.css";
 import IconTextGroup from "./components/IconTextGroup";
 import ThemedSwitch from "./components/ThemedSwitch";
+import InvitedUserList from "./modules/InvitedUserList";
 import InviteUserSearch from "./modules/InviteUserSearch";
 import ShareToWeb from "./modules/ShareToWeb";
 
@@ -29,6 +30,7 @@ function App() {
           <ShareToWeb />
           <Divider />
           <InviteUserSearch />
+          <InvitedUserList/>
         </Popover.Dropdown>
       </Popover>
     </Box>

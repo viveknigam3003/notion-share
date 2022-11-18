@@ -9,7 +9,7 @@ interface Props {
 const IconTextGroup: React.FC<Props> = ({ title, description, leftNode }) => {
   const { classes } = useStyles();
   return (
-    <Group align={"center"}>
+    <Group align={"center"} className={classes.group}>
       {leftNode}
       <Box className={classes.root}>
         <Text className={classes.title}>{title}</Text>
@@ -22,6 +22,9 @@ const IconTextGroup: React.FC<Props> = ({ title, description, leftNode }) => {
 export default IconTextGroup;
 
 const useStyles = createStyles((theme) => ({
+  group: {
+    gap: "0.5rem",
+  },
   root: {
     lineHeight: "1.25rem",
   },

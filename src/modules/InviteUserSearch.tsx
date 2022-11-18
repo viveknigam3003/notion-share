@@ -9,7 +9,7 @@ const InviteUserSearch = (props: Props) => {
     <ModalSection>
       <TextInput
         className={classes.inputWrapper}
-        placeholder='People, emails, groups'
+        placeholder="People, emails, groups"
         rightSection={
           <Button
             variant="default"
@@ -30,6 +30,7 @@ const useStyles = createStyles((theme) => ({
     input: {
       height: "2.625rem",
       fontSize: "1rem",
+      outline: "1px solid #6366F1",
     },
     ".mantine-TextInput-rightSection": {
       width: "inherit",
