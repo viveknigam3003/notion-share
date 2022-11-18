@@ -23,7 +23,7 @@ const InvitedUserList = (props: Props) => {
     <ModalSection pt="0">
       <Stack>
         {data.map((user) => (
-          <Group position="apart">
+          <Group position="apart" key={user.username}>
             <IconTextGroup
               title={user.username}
               description={user.description}

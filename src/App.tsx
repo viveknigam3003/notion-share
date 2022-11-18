@@ -18,7 +18,7 @@ function App() {
         trapFocus
         position="bottom-start"
         shadow="md"
-        transition={"fade"}
+        transition={"pop-top-right"}
       >
         <Popover.Target>
           <Button color="dark" rightIcon={<HiShare />}>
@@ -44,8 +44,8 @@ const useStyles = createStyles((theme) => ({
   root: {
     width: "100%",
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "flex-end",
   },
   dropdown: {
     borderRadius: "0.5rem",
