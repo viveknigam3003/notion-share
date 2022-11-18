@@ -1,11 +1,12 @@
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/700.css";
-import { Box, Button, createStyles, Popover } from "@mantine/core";
+import { Box, Button, createStyles, Divider, Popover } from "@mantine/core";
 import { HiShare, HiGlobe } from "react-icons/hi";
 import "./App.css";
 import IconTextGroup from "./components/IconTextGroup";
 import ThemedSwitch from "./components/ThemedSwitch";
+import InviteUserSearch from "./modules/InviteUserSearch";
 import ShareToWeb from "./modules/ShareToWeb";
 
 function App() {
@@ -24,8 +25,10 @@ function App() {
             Share
           </Button>
         </Popover.Target>
-        <Popover.Dropdown>
+        <Popover.Dropdown className={classes.dropdown}>
           <ShareToWeb />
+          <Divider />
+          <InviteUserSearch />
         </Popover.Dropdown>
       </Popover>
     </Box>
@@ -40,8 +43,9 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    ".mantine-Popover-dropdown": {
-      borderRadius: "0.5rem",
-    },
   },
+  dropdown: {
+    borderRadius: "0.5rem",
+    padding: 0,
+  }
 }));

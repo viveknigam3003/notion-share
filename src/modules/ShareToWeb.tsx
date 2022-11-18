@@ -1,13 +1,14 @@
-import { Box, Group } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { HiGlobe } from "react-icons/hi";
 import IconTextGroup from "../components/IconTextGroup";
+import ModalSection from "../components/ModalSection";
 import ThemedSwitch from "../components/ThemedSwitch";
 
 interface Props {}
 
 const ShareToWeb = (props: Props) => {
   return (
-    <Box>
+    <ModalSection>
       <Group align={"center"} position="apart">
         <IconTextGroup
           title={"Share to web"}
@@ -16,7 +17,7 @@ const ShareToWeb = (props: Props) => {
         />
         <ThemedSwitch />
       </Group>
-    </Box>
+    </ModalSection>
   );
 };
 

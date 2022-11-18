@@ -1,10 +1,12 @@
 import { MantineThemeOverride } from "@mantine/core";
 import { ButtonTheme } from "./ButtonTheme";
+import { InputTheme } from "./InputTheme";
 
 export const theme: MantineThemeOverride = {
   fontFamily: "Inter, Helvetica, Arial, sans-serif",
   components: {
     Button: ButtonTheme,
+    TextInput: InputTheme,
   },
   focusRingStyles: {
     styles: (theme) => ({
