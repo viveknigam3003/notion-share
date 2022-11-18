@@ -58,7 +58,6 @@ const SearchUserModal = (props: Props) => {
         classNames={{
           root: classes.root,
           input: classes.input,
-          searchInput: classes.searchInput,
         }}
         initiallyOpened
         limit={5}
@@ -73,12 +72,8 @@ export default SearchUserModal;
 const useStyles = createStyles((theme) => ({
   root: {},
   input: {
-    height: "3rem",
+    minHeight: "3rem",
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
-  },
-  searchInput: {
-    minWidth: "15rem",
   },
 }));
