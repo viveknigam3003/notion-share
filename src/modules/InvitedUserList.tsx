@@ -20,7 +20,7 @@ const data = [
 
 const InvitedUserList = (props: Props) => {
   return (
-    <ModalSection>
+    <ModalSection pt="0">
       <Stack>
         {data.map((user) => (
           <Group position="apart">
