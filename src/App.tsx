@@ -2,9 +2,11 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/700.css";
 import { Box, Button, createStyles, Popover } from "@mantine/core";
-import { HiShare } from "react-icons/hi";
+import { HiShare, HiGlobe } from "react-icons/hi";
 import "./App.css";
 import IconTextGroup from "./components/IconTextGroup";
+import ThemedSwitch from "./components/ThemedSwitch";
+import ShareToWeb from "./modules/ShareToWeb";
 
 function App() {
   const { classes } = useStyles();
@@ -23,7 +25,7 @@ function App() {
           </Button>
         </Popover.Target>
         <Popover.Dropdown>
-          <IconTextGroup />
+          <ShareToWeb />
         </Popover.Dropdown>
       </Popover>
     </Box>
