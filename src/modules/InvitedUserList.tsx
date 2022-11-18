@@ -1,4 +1,4 @@
-import { Avatar, Group } from "@mantine/core";
+import { Avatar, Group, Stack } from "@mantine/core";
 import OSlashLogo from "../assets/oslash_logo.png";
 import AccessSelector from "../components/AccessSelector";
 import IconTextGroup from "../components/IconTextGroup";
@@ -6,17 +6,35 @@ import ModalSection from "../components/ModalSection";
 
 interface Props {}
 
+const data = [
+  {
+    username: "Everyone at OSlash",
+    avatar: OSlashLogo,
+    description: "25 workspace members",
+  },
+  {
+    username: "Tom Cook",
+    description: "tom.cook@oslash.com",
+  },
+];
+
 const InvitedUserList = (props: Props) => {
   return (
     <ModalSection>
-      <Group position="apart">
-        <IconTextGroup
-          title="Everyone at OSlash"
-          description="25 workspace members"
-          leftNode={<Avatar radius={"xl"} src={OSlashLogo} alt="OSlash" />}
-        />
-        <AccessSelector />
-      </Group>
+      <Stack>
+        {data.map((user) => (
+          <Group position="apart">
+            <IconTextGroup
+              title={user.username}
+              description={user.description}
+              leftNode={
+                <Avatar radius={"xl"} src={user.avatar} alt={user.username} />
+              }
+            />
+            <AccessSelector />
+          </Group>
+        ))}
+      </Stack>
     </ModalSection>
   );
 };
