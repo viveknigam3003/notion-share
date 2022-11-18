@@ -27,10 +27,12 @@ export default InviteUserSearch;
 
 const useStyles = createStyles((theme) => ({
   inputWrapper: {
+    border: `1px solid ${theme.colors.violet[5]}`,
+    borderRadius: '0.375rem',
     input: {
       height: "2.625rem",
       fontSize: "1rem",
-      outline: "1px solid #6366F1",
+      border: 'none'
     },
     ".mantine-TextInput-rightSection": {
       width: "inherit",
@@ -42,5 +44,11 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.gray[0],
     fontSize: "1rem",
     lineHeight: "1.5rem",
+    borderRight: 0,
+    borderTop: 0,
+    borderBottom: 0,
+    '&:focus': {
+        outlineOffset: 0
+    }
   },
 }));
