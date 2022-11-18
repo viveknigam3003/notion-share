@@ -1,10 +1,22 @@
 import { Button, createStyles, TextInput } from "@mantine/core";
 import ModalSection from "../components/ModalSection";
+import { ModalType } from "../types";
 
-interface Props {}
+interface Props {
+  updateModalType: (modalType: ModalType) => void;
+}
 
 const InviteUserSearch = (props: Props) => {
   const { classes } = useStyles();
+
+  const handleClick = () => {
+    props.updateModalType(ModalType.SEARCH_USER);
+  };
+
+  const handleChange = () => {
+    props.updateModalType(ModalType.SEARCH_USER);
+  };
+
   return (
     <ModalSection>
       <TextInput
@@ -18,6 +30,8 @@ const InviteUserSearch = (props: Props) => {
             Invite
           </Button>
         }
+        onClick={handleClick}
+        onChange={handleChange}
       />
     </ModalSection>
   );
@@ -28,11 +42,11 @@ export default InviteUserSearch;
 const useStyles = createStyles((theme) => ({
   inputWrapper: {
     border: `1px solid ${theme.colors.violet[5]}`,
-    borderRadius: '0.375rem',
+    borderRadius: "0.375rem",
     input: {
       height: "2.625rem",
       fontSize: "1rem",
-      border: 'none'
+      border: "none",
     },
     ".mantine-TextInput-rightSection": {
       width: "inherit",
@@ -47,8 +61,8 @@ const useStyles = createStyles((theme) => ({
     borderRight: 0,
     borderTop: 0,
     borderBottom: 0,
-    '&:focus': {
-        outlineOffset: 0
-    }
+    "&:focus": {
+      outlineOffset: 0,
+    },
   },
 }));

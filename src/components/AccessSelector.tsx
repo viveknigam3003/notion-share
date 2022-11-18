@@ -21,6 +21,15 @@ const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
       transition="pop-top-left"
       transitionDuration={100}
       transitionTimingFunction="ease"
+      classNames={{
+        root: classes.root,
+        input: classes.input,
+      }}
+      styles={(theme) => ({
+        dropdown: {
+          width: '10rem',
+        }
+      })}
     />
   );
 };
@@ -28,14 +37,7 @@ const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
 export default AccessSelector;
 
 const useStyles = createStyles((theme) => ({
-  root: {
-    width: "6.25rem",
-    input: {
-      color: theme.colors.gray[6],
-    },
-    ".mantine-Select-dropdown": {
-      width: "10rem !important",
-    },
+  root: {   
     ".mantine-Select-itemsWrapper": {
       '[data-selected="true"]': {
         backgroundColor: theme.colors.gray[1],
@@ -52,5 +54,9 @@ const useStyles = createStyles((theme) => ({
         },
       },
     },
+  },
+  input: {
+    width: '6.25rem',
+    color: theme.colors.gray[6],
   },
 }));
