@@ -41,6 +41,10 @@ const useStyles = createStyles((theme) => ({
         backgroundColor: theme.colors.gray[1],
         color: theme.colors.dark[8],
       },
+      '[aria-selected="true"]': {
+        backgroundColor: theme.colors.gray[2],
+        color: theme.colors.dark[8],
+      },
       "& :last-child": {
         color: theme.colors.red[6],
         '[data-selected="true"]': {
