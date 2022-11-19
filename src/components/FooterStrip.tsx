@@ -1,5 +1,5 @@
 import { Box, Button, createStyles, Group, Text } from "@mantine/core";
-import ModalSection from "../components/ModalSection";
+import ModalSection from "./ModalSection";
 import { HiOutlineQuestionMarkCircle, HiOutlineLink } from "react-icons/hi";
 
 interface Props {}

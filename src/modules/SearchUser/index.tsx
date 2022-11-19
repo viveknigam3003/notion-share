@@ -12,7 +12,7 @@ import { HiX } from "react-icons/hi";
 import AccessSelector from "../../components/AccessSelector";
 import { UserDB } from "../../data/UserDB";
 import { PERMISSION_LEVEL, User } from "../../types";
-import FooterStrip from "../FooterStrip";
+import FooterStrip from "../../components/FooterStrip";
 import ItemGroup from "./ItemGroup";
 
 interface Props {}

@@ -1,7 +1,7 @@
 import { Divider } from "@mantine/core";
 import { Fragment } from "react";
 import { ModalType } from "../types";
-import FooterStrip from "./FooterStrip";
+import FooterStrip from "../components/FooterStrip";
 import InvitedUserList from "./InvitedUserList";
 import InviteUserSearch from "./InviteUserSearch";
 import ShareToWeb from "./ShareToWeb";
