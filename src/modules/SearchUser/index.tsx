@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { HiX } from "react-icons/hi";
 import AccessSelector from "../../components/AccessSelector";
 import { UserDB } from "../../data/UserDB";
-import { User } from "../../types";
+import { PERMISSION_LEVEL, User } from "../../types";
 import FooterStrip from "../FooterStrip";
 import ItemGroup from "./ItemGroup";
 
@@ -23,6 +23,9 @@ const SearchUserModal = (props: Props) => {
   const [users, setUsers] = useState<User[]>(UserDB);
   const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [permissionLevel, setPermissionLevel] = useState<PERMISSION_LEVEL>(
+    PERMISSION_LEVEL.VIEW
+  );
   const { classes } = useStyles({ hasUsers: selectedUsers.length > 0 });
 
   const searchUsers = (search: string) => {
@@ -38,7 +41,7 @@ const SearchUserModal = (props: Props) => {
   const handleSelect = (id: string) => {
     // Find user in users array
     const user = users.find((user) => user.id === id);
-    
+
     // If user is not found, return
     if (!user) return;
 
@@ -84,7 +87,7 @@ const SearchUserModal = (props: Props) => {
       <Box className={classes.root}>
         <Input.Wrapper className={classes.inputWrapper}>
           {selectedUsers.map((user) => (
-            <Box className={classes.tag}>
+            <Box className={classes.tag} key={user.id}>
               {user.name}
               <ActionIcon
                 color={"gray"}
@@ -111,8 +114,16 @@ const SearchUserModal = (props: Props) => {
           />
         </Input.Wrapper>
         <Group spacing={"xs"} align={"start"}>
-          <AccessSelector />
-          <Button size="xs" color="gray" variant="default">
+          <AccessSelector
+            value={permissionLevel}
+            onChange={(v: PERMISSION_LEVEL) => setPermissionLevel(v)}
+          />
+          <Button
+            size="xs"
+            color="gray"
+            variant="default"
+            disabled={permissionLevel === PERMISSION_LEVEL.NO_ACCESS}
+          >
             Invite
           </Button>
         </Group>

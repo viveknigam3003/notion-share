@@ -9,7 +9,8 @@ const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
       {...props}
       tabIndex={0}
       variant="unstyled"
-      defaultValue={props.defaultValue || PERMISSION_LEVEL.VIEW}
+      value={props.value}
+      onChange={props.onChange}
       data={[
         { value: PERMISSION_LEVEL.FULL, label: "Full Access" },
         { value: PERMISSION_LEVEL.EDIT, label: "Can Edit" },
