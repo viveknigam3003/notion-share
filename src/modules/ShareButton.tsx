@@ -3,7 +3,7 @@ import { useState } from "react";
 import { HiShare } from "react-icons/hi";
 import { ModalType } from "../types";
 import AccessControlModal from "./AccessControlModal";
-import SearchUserModal from "./SearchUserModal";
+import SearchUserModal from "./SearchUser";
 
 interface Props {}
 
