@@ -19,18 +19,18 @@ const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
       ]}
       size="xs"
       rightSection={<HiChevronDown color="gray" />}
-      className={classes.root}
       transition="pop-top-left"
       transitionDuration={100}
       transitionTimingFunction="ease"
       classNames={{
-        root: classes.root,
         input: classes.input,
+        itemsWrapper: classes.itemsWrapper,
       }}
       styles={(theme) => ({
         dropdown: {
-          width: '10rem',
-        }
+          color: theme.colors.red[5],
+          width: "14rem",
+        },
       })}
     />
   );
@@ -39,26 +39,27 @@ const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
 export default AccessSelector;
 
 const useStyles = createStyles((theme) => ({
-  root: {   
-    ".mantine-Select-itemsWrapper": {
-      '[data-selected="true"]': {
+  itemsWrapper: {
+    '& [data-selected="true"]': {
+      backgroundColor: theme.colors.gray[1],
+      color: theme.colors.dark[8],
+      "&:hover": {
         backgroundColor: theme.colors.gray[1],
-        color: theme.colors.dark[8],
       },
-      '[aria-selected="true"]': {
-        backgroundColor: theme.colors.gray[2],
-        color: theme.colors.dark[8],
-      },
-      "& :last-child": {
+    },
+    '& [aria-selected="true"]': {
+      backgroundColor: theme.colors.gray[2],
+      color: theme.colors.dark[8],
+    },
+    "& :last-child": {
+      color: theme.colors.red[6],
+      '[data-selected="true"]': {
         color: theme.colors.red[6],
-        '[data-selected="true"]': {
-          color: theme.colors.red[6],
-        },
       },
     },
   },
   input: {
-    width: '6.25rem',
+    width: "6.25rem",
     color: theme.colors.gray[6],
   },
 }));
