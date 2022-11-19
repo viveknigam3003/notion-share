@@ -26,12 +26,12 @@ const AccessSelector: React.FC<Omit<SelectProps, "data">> = ({ ...props }) => {
         input: classes.input,
         itemsWrapper: classes.itemsWrapper,
       }}
-      styles={(theme) => ({
+      styles={{
         dropdown: {
-          color: theme.colors.red[5],
-          width: "14rem",
+          width: "11rem !important",
+          left: "20rem !important",
         },
-      })}
+      }}
     />
   );
 };
