@@ -14,6 +14,7 @@ import { UserDB } from "../../data/UserDB";
 import { PERMISSION_LEVEL, User } from "../../types";
 import FooterStrip from "../../components/FooterStrip";
 import ItemGroup from "./ItemGroup";
+import LearnAboutSharing from "../../components/LearnAboutSharing";
 
 interface Props {}
 
@@ -142,7 +143,7 @@ const SearchUserModal = (props: Props) => {
           onSelect={handleSelect}
         />
       </Box>
-      <FooterStrip />
+      <FooterStrip leftItems={<LearnAboutSharing />} />
     </Box>
   );
 };
