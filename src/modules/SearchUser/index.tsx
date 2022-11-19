@@ -1,17 +1,13 @@
 import {
   ActionIcon,
-  Badge,
   Box,
   Button,
-  Chip,
   createStyles,
   Group,
   Input,
-  MultiSelect,
   TextInput,
 } from "@mantine/core";
-import { useFocusTrap } from "@mantine/hooks";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiX } from "react-icons/hi";
 import AccessSelector from "../../components/AccessSelector";
 import { UserDB } from "../../data/UserDB";
@@ -24,37 +20,38 @@ interface Props {}
 const SearchUserModal = (props: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>(UserDB);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const { classes } = useStyles({ hasUsers: selectedUsers.length > 0 });
 
-  useEffect(() => {
-    setUsers(UserDB);
-  }, []);
-
   const searchUsers = (search: string) => {
     setSearch(search);
-    const filteredUsers = UserDB.filter(
+    const f = users.filter(
       (user) =>
         user.name.toLowerCase().includes(search.toLowerCase()) ||
         user.email?.toLowerCase().includes(search.toLowerCase())
     );
-    setUsers(filteredUsers);
+    setFilteredUsers(f);
   };
 
   const handleSelect = (id: string) => {
     // Find user in users array
     const user = users.find((user) => user.id === id);
+    
     // If user is not found, return
     if (!user) return;
 
     // Add user to selectedUsers array
     setSelectedUsers([...selectedUsers, user]);
+
     // Remove user from users array
-    setUsers(users.filter((user) => user.id !== id));
+    const newUsers = users.filter((user) => user.id !== id);
+    setUsers(newUsers);
 
     // Clear search
     setSearch("");
+    setFilteredUsers(newUsers);
 
     // Focus on input
     inputRef.current?.focus();
@@ -63,15 +60,23 @@ const SearchUserModal = (props: Props) => {
   const handleRemove = (id: string) => {
     // Find user in selectedUsers array
     const user = selectedUsers.find((user) => user.id === id);
+
     // If user is not found, return
     if (!user) return;
+
     // Remove user from selectedUsers array
     setSelectedUsers(selectedUsers.filter((user) => user.id !== id));
+
     // Add user to users array
     const newArray = [...users, user].sort((a, b) =>
       Number(a) > Number(b) ? 1 : -1
     );
+
     setUsers(newArray);
+    setFilteredUsers(newArray);
+
+    // Focus on input
+    inputRef.current?.focus();
   };
 
   return (
@@ -91,6 +96,7 @@ const SearchUserModal = (props: Props) => {
               </ActionIcon>
             </Box>
           ))}
+
           <TextInput
             ref={inputRef}
             type="text"
@@ -114,12 +120,14 @@ const SearchUserModal = (props: Props) => {
       <Box className={classes.userList}>
         <ItemGroup
           title="Search a person"
-          data={users.filter((user) => !user.users)}
+          data={filteredUsers.filter((user) => !user.users)}
           onSelect={handleSelect}
         />
         <ItemGroup
           title="Search a group"
-          data={users.filter((user) => user.users && user.users.length > 0)}
+          data={filteredUsers.filter(
+            (user) => user.users && user.users.length > 0
+          )}
           onSelect={handleSelect}
         />
       </Box>
