@@ -16,7 +16,6 @@ export interface User {
   name: string;
   email?: string;
   avatar?: string;
-  permission: PERMISSION_LEVEL;
   users?: string[];
 }
 
