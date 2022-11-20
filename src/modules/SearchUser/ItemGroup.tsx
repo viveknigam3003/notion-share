@@ -6,9 +6,10 @@ interface Props {
   title: string;
   data: User[];
   onSelect: (id: string) => void;
+  limit?: number;
 }
 
-const ItemGroup: React.FC<Props> = ({ title, data, onSelect }) => {
+const ItemGroup: React.FC<Props> = ({ title, data, onSelect, limit = 3 }) => {
   if (data.length === 0) return null;
 
   return (
@@ -16,8 +17,8 @@ const ItemGroup: React.FC<Props> = ({ title, data, onSelect }) => {
       <Text size="sm" weight={500} pb={"xs"}>
         {title}
       </Text>
-      {data.map((user) => (
-        <SelectItem key={user.id} {...user} onSelect={onSelect}/>
+      {data.slice(0, limit).map((user) => (
+        <SelectItem key={user.id} {...user} onSelect={onSelect} />
       ))}
     </Box>
   );

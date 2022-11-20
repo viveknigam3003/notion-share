@@ -1,12 +1,12 @@
 import { Box, Button, createStyles, Group } from "@mantine/core";
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import AccessSelector from "../../components/AccessSelector";
 import FooterStrip from "../../components/FooterStrip";
 import LearnAboutSharing from "../../components/LearnAboutSharing";
 import { UserDB } from "../../data/UserDB";
 import { PERMISSION_LEVEL, User } from "../../types";
-import ItemGroup from "./ItemGroup";
 import SearchInput from "./SearchInput";
+import UserList from "./UserList";
 
 interface Props {}
 
@@ -100,30 +100,11 @@ const SearchUserModal = (props: Props) => {
           </Button>
         </Group>
       </Box>
-      <Box className={classes.userList}>
-        {filteredUsers.length ? (
-          <Fragment>
-            <ItemGroup
-              title="Search a person"
-              data={filteredUsers.filter((user) => !user.users)}
-              onSelect={handleSelect}
-            />
-            <ItemGroup
-              title="Search a group"
-              data={filteredUsers.filter(
-                (user) => user.users && user.users.length > 0
-              )}
-              onSelect={handleSelect}
-            />
-          </Fragment>
-        ) : (
-          <Box className={classes.noUsers}>
-            {search.length
-              ? "No users or groups found"
-              : "Start typing names, emails, or groups to search"}
-          </Box>
-        )}
-      </Box>
+      <UserList
+        users={filteredUsers}
+        onSelect={handleSelect}
+        showEmptyState={search.length > 0}
+      />
       <FooterStrip leftItems={<LearnAboutSharing />} />
     </Box>
   );
