@@ -5,7 +5,7 @@ import AccessSelector from "../../components/AccessSelector";
 import IconTextGroup from "../../components/IconTextGroup";
 import ModalSection from "../../components/ModalSection";
 import UserAvatar from "../../components/UserAvatar";
-import { PageShareObject, PERMISSION_LEVEL } from "../../types";
+import { PageShareObject } from "../../types";
 
 interface Props {}
 
@@ -29,7 +29,7 @@ const InvitedUserList = (props: Props) => {
               }
               leftNode={<UserAvatar src={user.avatar} alt={user.name} />}
             />
-            <AccessSelector defaultValue={PERMISSION_LEVEL.FULL} />
+            <AccessSelector value={user.permission} />
           </Group>
         ))}
       </Stack>

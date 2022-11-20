@@ -92,6 +92,7 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
       id: user.id,
       permission,
     }));
+
     updatePageConfig(invites);
     updateModalType(ModalType.NONE);
   };
@@ -115,7 +116,7 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
             size="xs"
             color="gray"
             variant="default"
-            disabled={permission === PERMISSION_LEVEL.NO_ACCESS}
+            disabled={permission === PERMISSION_LEVEL.NO_ACCESS || selectedUsers.length === 0}
             onClick={handleInvite}
           >
             Invite

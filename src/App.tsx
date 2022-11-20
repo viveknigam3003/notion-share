@@ -7,7 +7,6 @@ import "./App.css";
 import { config } from "./db/config";
 import { initDB } from "./db/init";
 import { PageDB } from "./db/PageData";
-import { purgeDB } from "./db/purgeDB";
 import { UserDB } from "./db/UserData";
 import ShareButton from "./modules/ShareButton";
 
@@ -17,11 +16,6 @@ function App() {
   useEffect(() => {
     initDB(config.pageDB, PageDB);
     initDB(config.userDB, UserDB);
-
-    return () => {
-      purgeDB(config.pageDB);
-      purgeDB(config.userDB);
-    };
   }, []);
 
   return (
