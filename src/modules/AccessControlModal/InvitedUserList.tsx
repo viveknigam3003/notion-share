@@ -1,4 +1,4 @@
-import { Group, Stack } from "@mantine/core";
+import { createStyles, Group, Stack } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { getAccessData } from "../../apis/getAccessData";
 import {
@@ -15,6 +15,7 @@ import { PageShareObject, PERMISSION_LEVEL } from "../../types";
 interface Props {}
 
 const InvitedUserList = (props: Props) => {
+  const { classes } = useStyles();
   const [pageShareData, setPageShareData] = useState<PageShareObject[]>([]);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const InvitedUserList = (props: Props) => {
   };
 
   return (
-    <ModalSection pt="0">
+    <ModalSection pt="0" className={classes.root}>
       <Stack>
         {pageShareData.map((user) => (
           <Group position="apart" key={user.id}>
@@ -57,3 +58,10 @@ const InvitedUserList = (props: Props) => {
 };
 
 export default InvitedUserList;
+
+const useStyles = createStyles((theme) => ({
+  root: {
+    maxHeight: '12rem',
+    overflowY: 'auto',
+  }
+}));
