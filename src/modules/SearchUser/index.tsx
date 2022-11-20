@@ -1,22 +1,25 @@
 import { Box, Button, createStyles, Group } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { getUsers } from "../../apis/getUsers";
+import { updatePageConfig } from "../../apis/pages";
+import { getUsers } from "../../apis/users";
 import AccessSelector from "../../components/AccessSelector";
 import FooterStrip from "../../components/FooterStrip";
 import LearnAboutSharing from "../../components/LearnAboutSharing";
-import { PERMISSION_LEVEL, User } from "../../types";
+import { ModalType, PERMISSION_LEVEL, User } from "../../types";
 import SearchInput from "./SearchInput";
 import UserList from "./UserList";
 
-interface Props {}
+interface Props {
+  updateModalType: (type: ModalType) => void;
+}
 
-const SearchUserModal = (props: Props) => {
+const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-  const [permissionLevel, setPermissionLevel] = useState<PERMISSION_LEVEL>(
+  const [permission, setPermission] = useState<PERMISSION_LEVEL>(
     PERMISSION_LEVEL.VIEW
   );
   const { classes } = useStyles();
@@ -84,6 +87,15 @@ const SearchUserModal = (props: Props) => {
     inputRef.current?.focus();
   };
 
+  const handleInvite = () => {
+    const invites = selectedUsers.map((user) => ({
+      id: user.id,
+      permission,
+    }));
+    updatePageConfig(invites);
+    updateModalType(ModalType.NONE);
+  };
+
   return (
     <Box>
       <Box className={classes.root}>
@@ -96,14 +108,15 @@ const SearchUserModal = (props: Props) => {
         />
         <Group spacing={"xs"} align={"start"}>
           <AccessSelector
-            value={permissionLevel}
-            onChange={(v: PERMISSION_LEVEL) => setPermissionLevel(v)}
+            value={permission}
+            onChange={(v: PERMISSION_LEVEL) => setPermission(v)}
           />
           <Button
             size="xs"
             color="gray"
             variant="default"
-            disabled={permissionLevel === PERMISSION_LEVEL.NO_ACCESS}
+            disabled={permission === PERMISSION_LEVEL.NO_ACCESS}
+            onClick={handleInvite}
           >
             Invite
           </Button>

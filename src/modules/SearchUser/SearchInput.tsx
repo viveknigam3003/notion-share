@@ -26,7 +26,7 @@ const SearchInput = forwardRef<HTMLInputElement, Props>(
     return (
       <Input.Wrapper className={classes.inputWrapper}>
         {selectedUsers.map((user) => (
-          <UserPill selectedUser={user} handleRemove={removeSelected} />
+          <UserPill key={user.id} selectedUser={user} handleRemove={removeSelected} />
         ))}
         <TextInput
           ref={ref}

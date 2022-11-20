@@ -16,7 +16,7 @@ const DropdownContent: React.FC = () => {
 
   switch (modalOpened) {
     case ModalType.SEARCH_USER:
-      return <SearchUserModal />;
+      return <SearchUserModal updateModalType={updateModalType} />;
     default:
       return <AccessControlModal updateModalType={updateModalType} />;
   }

@@ -1,6 +1,6 @@
 import { Page, PageShareObject, SharedWith, User } from "../types";
-import { getPageConfig } from "./getPageConfig";
-import { getUsers } from "./getUsers";
+import { getPageConfig } from "./pages";
+import { getUsers } from "./users";
 
 export const getAccessData = (
   pageId: string = "page-1"
@@ -15,7 +15,7 @@ export const getAccessData = (
     const user = users.find((user: User) => user.id === share.id);
 
     if (!user) {
-       throw new Error("User not found");
+      throw new Error("User not found");
     }
 
     return {
