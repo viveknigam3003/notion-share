@@ -1,8 +1,8 @@
 import { Group } from "@mantine/core";
 import { HiGlobe } from "react-icons/hi";
-import IconTextGroup from "../components/IconTextGroup";
-import ModalSection from "../components/ModalSection";
-import ThemedSwitch from "../components/ThemedSwitch";
+import IconTextGroup from "../../components/IconTextGroup";
+import ModalSection from "../../components/ModalSection";
+import ThemedSwitch from "../../components/ThemedSwitch";
 
 interface Props {}
 

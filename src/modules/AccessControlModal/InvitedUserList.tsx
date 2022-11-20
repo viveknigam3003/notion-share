@@ -1,9 +1,9 @@
 import { Avatar, Group, Stack } from "@mantine/core";
-import OSlashLogo from "../assets/oslash_logo.png";
-import AccessSelector from "../components/AccessSelector";
-import IconTextGroup from "../components/IconTextGroup";
-import ModalSection from "../components/ModalSection";
-import { PERMISSION_LEVEL } from "../types";
+import OSlashLogo from "../../assets/oslash_logo.png";
+import AccessSelector from "../../components/AccessSelector";
+import IconTextGroup from "../../components/IconTextGroup";
+import ModalSection from "../../components/ModalSection";
+import { PERMISSION_LEVEL } from "../../types";
 
 interface Props {}
 

@@ -1,6 +1,6 @@
 import { Button, createStyles, TextInput } from "@mantine/core";
-import ModalSection from "../components/ModalSection";
-import { ModalType } from "../types";
+import ModalSection from "../../components/ModalSection";
+import { ModalType } from "../../types";
 
 interface Props {
   updateModalType: (modalType: ModalType) => void;
