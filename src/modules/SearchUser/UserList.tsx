@@ -1,26 +1,8 @@
 import { Box, createStyles } from "@mantine/core";
 import { Fragment } from "react";
-import { User } from "../../types";
+import EmptyState from "../../components/EmptyState";
 import ItemGroup from "../../components/ItemGroup";
-
-interface EmptyStateProps {
-  noUsersFound?: boolean;
-  noUsersFoundMessage?: string;
-  emptyStatePrompt?: string;
-}
-
-const EmptyState: React.FC<EmptyStateProps> = ({
-  noUsersFound,
-  noUsersFoundMessage = "No users or groups found",
-  emptyStatePrompt = "Start typing names, emails, or groups to search",
-}) => {
-  const { classes } = useStyles();
-  return (
-    <Box className={classes.noUsers}>
-      {noUsersFound ? noUsersFoundMessage : emptyStatePrompt}
-    </Box>
-  );
-};
+import { User } from "../../types";
 
 interface Props {
   users: User[];
@@ -65,10 +47,5 @@ const useStyles = createStyles((theme) => ({
 
   userList: {
     padding: "1rem",
-  },
-  noUsers: {
-    fontSize: "0.75rem",
-    color: theme.colors.gray[6],
-    textAlign: "center",
   },
 }));
