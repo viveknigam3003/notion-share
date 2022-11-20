@@ -1,20 +1,12 @@
-import {
-  ActionIcon,
-  Box,
-  Button,
-  createStyles,
-  Group,
-  Input,
-  TextInput,
-} from "@mantine/core";
-import { useEffect, useRef, useState } from "react";
-import { HiX } from "react-icons/hi";
+import { Box, Button, createStyles, Group } from "@mantine/core";
+import { Fragment, useRef, useState } from "react";
 import AccessSelector from "../../components/AccessSelector";
+import FooterStrip from "../../components/FooterStrip";
+import LearnAboutSharing from "../../components/LearnAboutSharing";
 import { UserDB } from "../../data/UserDB";
 import { PERMISSION_LEVEL, User } from "../../types";
-import FooterStrip from "../../components/FooterStrip";
 import ItemGroup from "./ItemGroup";
-import LearnAboutSharing from "../../components/LearnAboutSharing";
+import SearchInput from "./SearchInput";
 
 interface Props {}
 
@@ -86,34 +78,13 @@ const SearchUserModal = (props: Props) => {
   return (
     <Box>
       <Box className={classes.root}>
-        <Input.Wrapper className={classes.inputWrapper}>
-          {selectedUsers.map((user) => (
-            <Box className={classes.tag} key={user.id}>
-              {user.name}
-              <ActionIcon
-                color={"gray"}
-                variant="light"
-                className={classes.tagButton}
-                onClick={() => handleRemove(user.id)}
-              >
-                <HiX />
-              </ActionIcon>
-            </Box>
-          ))}
-
-          <TextInput
-            ref={inputRef}
-            type="text"
-            classNames={{ input: classes.inputField }}
-            variant="filled"
-            placeholder={
-              selectedUsers.length > 0 ? "" : "Search emails, names or groups"
-            }
-            autoFocus
-            value={search}
-            onChange={(e) => searchUsers(e.currentTarget.value)}
-          />
-        </Input.Wrapper>
+        <SearchInput
+          ref={inputRef}
+          searchValue={search}
+          selectedUsers={selectedUsers}
+          handleSearch={searchUsers}
+          removeSelected={handleRemove}
+        />
         <Group spacing={"xs"} align={"start"}>
           <AccessSelector
             value={permissionLevel}
@@ -130,18 +101,28 @@ const SearchUserModal = (props: Props) => {
         </Group>
       </Box>
       <Box className={classes.userList}>
-        <ItemGroup
-          title="Search a person"
-          data={filteredUsers.filter((user) => !user.users)}
-          onSelect={handleSelect}
-        />
-        <ItemGroup
-          title="Search a group"
-          data={filteredUsers.filter(
-            (user) => user.users && user.users.length > 0
-          )}
-          onSelect={handleSelect}
-        />
+        {filteredUsers.length ? (
+          <Fragment>
+            <ItemGroup
+              title="Search a person"
+              data={filteredUsers.filter((user) => !user.users)}
+              onSelect={handleSelect}
+            />
+            <ItemGroup
+              title="Search a group"
+              data={filteredUsers.filter(
+                (user) => user.users && user.users.length > 0
+              )}
+              onSelect={handleSelect}
+            />
+          </Fragment>
+        ) : (
+          <Box className={classes.noUsers}>
+            {search.length
+              ? "No users or groups found"
+              : "Start typing names, emails, or groups to search"}
+          </Box>
+        )}
       </Box>
       <FooterStrip leftItems={<LearnAboutSharing />} />
     </Box>
@@ -159,51 +140,14 @@ const useStyles = createStyles(
       backgroundColor: theme.colors.gray[1],
       padding: "0.75rem 1rem 0.75rem 1rem",
     },
-    inputWrapper: {
-      display: "flex",
-      width: "18rem",
-      maxWidth: "100%",
-      backgroundColor: theme.colors.gray[1],
-      flexWrap: "wrap",
-    },
-    inputField: {
-      fontSize: "0.75rem",
-      appearance: "none",
-      border: "none",
-      width: `${hasUsers ? "fit-content" : "15rem"}`,
-      minWidth: "50%",
-      height: "24px",
-      minHeight: "24px",
-      padding: 0,
-      "&:focus": {
-        outline: "none",
-      },
-    },
-    tag: {
-      display: "flex",
-      alignItems: "center",
-      margin: "0 4px 4px 0",
-      borderRadius: "5px",
-      padding: "2px 4px",
-      whiteSpace: "nowrap",
-      fontSize: "0.75rem",
-      backgroundColor: theme.colors.gray[2],
-    },
-    tagButton: {
-      padding: "0px",
-      height: "10px",
-      marginLeft: "2px",
-      minHeight: "10px",
-      fontSize: "0.5rem",
-      width: "10px",
-      minWidth: "10px",
-      backgroundColor: theme.colors.gray[2],
-      "&:hover": {
-        backgroundColor: theme.colors.gray[2],
-      },
-    },
+
     userList: {
       padding: "1rem",
+    },
+    noUsers: {
+      fontSize: "0.75rem",
+      color: theme.colors.gray[6],
+      textAlign: "center",
     },
   })
 );
