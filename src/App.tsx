@@ -4,7 +4,11 @@ import "@fontsource/inter/700.css";
 import { Box, createStyles } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { getAccessData } from "./apis/getAccessData";
-import { updatePageConfig } from "./apis/pages";
+import {
+  removePagePermissionForUser,
+  updatePageConfig,
+  updatePagePermissionForUser,
+} from "./apis/pages";
 import { getUsers } from "./apis/users";
 import "./App.css";
 import { config } from "./db/config";
@@ -12,7 +16,7 @@ import { initDB } from "./db/init";
 import { PageDB } from "./db/PageData";
 import { UserDB } from "./db/UserData";
 import ShareButton from "./modules/ShareButton";
-import { PERMISSION_LEVEL, User } from "./types";
+import { PageShareObject, PERMISSION_LEVEL, User } from "./types";
 
 function App() {
   const { classes } = useStyles();
@@ -21,6 +25,7 @@ function App() {
   const [permission, setPermission] = useState<PERMISSION_LEVEL>(
     PERMISSION_LEVEL.VIEW
   );
+  const [pageShareData, setPageShareData] = useState<PageShareObject[]>([]);
 
   useEffect(() => {
     initDB(config.pageDB, PageDB);
@@ -38,6 +43,15 @@ function App() {
       setUsers(data);
     }
   }, []);
+
+  useEffect(() => {
+    hydratePageShareData();
+  }, []);
+
+  const hydratePageShareData = () => {
+    const data = getAccessData();
+    setPageShareData(data);
+  };
 
   /**
    * Adds user to selected users list.
@@ -99,6 +113,22 @@ function App() {
     }));
 
     updatePageConfig(invites);
+    hydratePageShareData();
+  };
+
+  /**
+   * Updates the permission level for a user.
+   * @param id User ID
+   * @param permission New Permission Level
+   */
+  const updateUserPermission = (id: string, permission: string) => {
+    if (permission === PERMISSION_LEVEL.NO_ACCESS) {
+      removePagePermissionForUser(id);
+    } else {
+      updatePagePermissionForUser(id, permission);
+    }
+
+    hydratePageShareData();
   };
 
   return (
@@ -107,10 +137,12 @@ function App() {
         users={users}
         selectedUsers={selectedUsers}
         permission={permission}
+        sharedUsers={pageShareData}
         onSelect={handleSelect}
         onRemove={handleRemove}
         onInvite={handleInvite}
         onPermissionChange={setPermission}
+        onUserPermissionChange={updateUserPermission}
       />
     </Box>
   );

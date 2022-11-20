@@ -2,10 +2,15 @@ import { Button, createStyles, Popover } from "@mantine/core";
 import { useState } from "react";
 import { HiShare } from "react-icons/hi";
 import { ModalType } from "../types";
-import AccessControlModal from "./AccessControlModal";
+import AccessControlModal, {
+  AccessControlModalProps,
+} from "./AccessControlModal";
 import SearchUserModal, { SearchUserModalProps } from "./SearchUser";
 
-type ShareProps = Omit<SearchUserModalProps, "updateModalType">;
+type ShareProps = Omit<
+  SearchUserModalProps & AccessControlModalProps,
+  "updateModalType"
+>;
 
 const DropdownContent: React.FC<ShareProps> = ({
   onInvite,
@@ -15,6 +20,8 @@ const DropdownContent: React.FC<ShareProps> = ({
   users,
   selectedUsers,
   permission,
+  sharedUsers,
+  onUserPermissionChange,
 }) => {
   const [modalOpened, setModalOpened] = useState<ModalType>(ModalType.NONE);
 
@@ -37,7 +44,13 @@ const DropdownContent: React.FC<ShareProps> = ({
         />
       );
     default:
-      return <AccessControlModal updateModalType={updateModalType} />;
+      return (
+        <AccessControlModal
+          updateModalType={updateModalType}
+          sharedUsers={sharedUsers}
+          onUserPermissionChange={onUserPermissionChange}
+        />
+      );
   }
 };
 
