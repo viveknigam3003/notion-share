@@ -1,18 +1,24 @@
-import { Avatar, Box, createStyles, Group, Text } from "@mantine/core";
+import { Box, createStyles, Group, Text } from "@mantine/core";
+import UserAvatar from "../../components/UserAvatar";
 import { User } from "../../types";
 
-const SelectItem: React.FC<User & {onSelect: (id: string) => void}> = ({ id, users, avatar, name, onSelect }) => {
+const SelectItem: React.FC<User & { onSelect: (id: string) => void }> = ({
+  id,
+  users,
+  avatar,
+  name,
+  onSelect,
+}) => {
   const { classes } = useStyles();
   return (
     <Box className={classes.root} onClick={() => onSelect(id)}>
       <Group noWrap spacing={"xs"}>
-        {users && users.length > 0 ? (
-          <Avatar size={"sm"} src={avatar} color="violet">
-            {avatar}
-          </Avatar>
-        ) : (
-          <Avatar size={"sm"} src={avatar} radius="xl" />
-        )}
+        <UserAvatar
+          src={avatar}
+          isGroup={users && users?.length > 0}
+          alt={name}
+          size="sm"
+        />
         <Text>{name}</Text>
       </Group>
     </Box>

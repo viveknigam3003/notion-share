@@ -1,15 +1,19 @@
-import { PERMISSION_LEVEL } from "../types";
+import { Page, PERMISSION_LEVEL } from "../types";
 
-export const PageDB = [
+export const PageDB: Array<Page> = [
   {
-    id: 'page-1',
-    shared: [
+    id: "page-1",
+    sharedWith: [
       {
-        id: "3",
+        id: "1",
         permission: PERMISSION_LEVEL.FULL,
       },
       {
-        id: "5",
+        id: "4",
+        permission: PERMISSION_LEVEL.FULL,
+      },
+      {
+        id: "3",
         permission: PERMISSION_LEVEL.FULL,
       },
     ],

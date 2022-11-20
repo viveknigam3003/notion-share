@@ -19,3 +19,14 @@ export interface User {
   users?: string[];
 }
 
+export interface Page {
+  id: string;
+  sharedWith: Array<SharedWith>;
+}
+
+export interface SharedWith {
+  id: string;
+  permission: PERMISSION_LEVEL;
+}
+
+export type PageShareObject = User & SharedWith;
