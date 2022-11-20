@@ -1,6 +1,6 @@
 import { ActionIcon, Box, createStyles } from "@mantine/core";
 import { HiX } from "react-icons/hi";
-import { User } from "../../types";
+import { User } from "../types";
 
 interface Props {
   selectedUser: User;

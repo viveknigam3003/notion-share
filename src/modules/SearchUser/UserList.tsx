@@ -1,7 +1,7 @@
 import { Box, createStyles } from "@mantine/core";
 import { Fragment } from "react";
 import { User } from "../../types";
-import ItemGroup from "./ItemGroup";
+import ItemGroup from "../../components/ItemGroup";
 
 interface EmptyStateProps {
   noUsersFound?: boolean;

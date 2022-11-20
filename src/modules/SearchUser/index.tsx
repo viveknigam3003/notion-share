@@ -7,7 +7,7 @@ import AccessSelector from "../../components/AccessSelector";
 import FooterStrip from "../../components/FooterStrip";
 import LearnAboutSharing from "../../components/LearnAboutSharing";
 import { ModalType, PERMISSION_LEVEL, User } from "../../types";
-import SearchInput from "./SearchInput";
+import SearchInput from "../../components/SearchInput";
 import UserList from "./UserList";
 
 interface Props {
@@ -30,22 +30,33 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
     // Get users from db
     if (users.length === 0) {
       // Filtering out users who are already added
-      const data = getUsers().filter(user => !accessData.find(d => d.id === user.id));
+      const data = getUsers().filter(
+        (user) => !accessData.find((d) => d.id === user.id)
+      );
       setUsers(data);
       setFilteredUsers(data);
     }
   }, []);
 
+  /**
+   * Filter users based on search query.
+   * @param search Search String
+   */
   const searchUsers = (search: string) => {
     setSearch(search);
-    const f = users.filter(
+    const filterResults = users.filter(
       (user) =>
         user.name.toLowerCase().includes(search.toLowerCase()) ||
         user.email?.toLowerCase().includes(search.toLowerCase())
     );
-    setFilteredUsers(f);
+    setFilteredUsers(filterResults);
   };
 
+  /**
+   * Adds user to selected users list.
+   * @param id User ID
+   * @returns void
+   */
   const handleSelect = (id: string) => {
     // Find user in users array
     const user = users.find((user) => user.id === id);
@@ -68,6 +79,11 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
     inputRef.current?.focus();
   };
 
+  /**
+   * Removes the user from selected users list.
+   * @param id User ID
+   * @returns void
+   */
   const handleRemove = (id: string) => {
     // Find user in selectedUsers array
     const user = selectedUsers.find((user) => user.id === id);
@@ -90,6 +106,9 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
     inputRef.current?.focus();
   };
 
+  /**
+   * Updates permission level for selected users.
+   */
   const handleInvite = () => {
     const invites = selectedUsers.map((user) => ({
       id: user.id,
@@ -119,7 +138,10 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
             size="xs"
             color="gray"
             variant="default"
-            disabled={permission === PERMISSION_LEVEL.NO_ACCESS || selectedUsers.length === 0}
+            disabled={
+              permission === PERMISSION_LEVEL.NO_ACCESS ||
+              selectedUsers.length === 0
+            }
             onClick={handleInvite}
           >
             Invite

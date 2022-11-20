@@ -1,6 +1,6 @@
 import { Box, Text } from "@mantine/core";
-import { User } from "../../types";
-import SelectItem from "./SelectItem";
+import { User } from "../types";
+import SelectItem from "../modules/SearchUser/SelectItem";
 
 interface Props {
   title: string;

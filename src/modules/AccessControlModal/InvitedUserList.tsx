@@ -1,43 +1,25 @@
 import { createStyles, Group, Stack } from "@mantine/core";
-import { useEffect, useState } from "react";
-import { getAccessData } from "../../apis/getAccessData";
-import {
-  removePagePermissionForUser,
-  updatePageConfig,
-  updatePagePermissionForUser,
-} from "../../apis/pages";
 import AccessSelector from "../../components/AccessSelector";
 import IconTextGroup from "../../components/IconTextGroup";
 import ModalSection from "../../components/ModalSection";
 import UserAvatar from "../../components/UserAvatar";
 import { PageShareObject, PERMISSION_LEVEL } from "../../types";
 
-interface Props {}
+interface Props {
+  userList: PageShareObject[];
+  handlePermissionChange: (id: string, permission: string) => void;
+}
 
-const InvitedUserList = (props: Props) => {
+const InvitedUserList: React.FC<Props> = ({
+  userList,
+  handlePermissionChange,
+}) => {
   const { classes } = useStyles();
-  const [pageShareData, setPageShareData] = useState<PageShareObject[]>([]);
-
-  useEffect(() => {
-    const data = getAccessData();
-    setPageShareData(data);
-  }, []);
-
-  const updatePermission = (id: string, permission: string) => {
-    if (permission === PERMISSION_LEVEL.NO_ACCESS) {
-      removePagePermissionForUser(id);
-    } else {
-      updatePagePermissionForUser(id, permission);
-    }
-
-    const data = getAccessData();
-    setPageShareData(data);
-  };
 
   return (
     <ModalSection pt="0" className={classes.root}>
       <Stack>
-        {pageShareData.map((user) => (
+        {userList.map((user) => (
           <Group position="apart" key={user.id}>
             <IconTextGroup
               title={user.name}
@@ -48,7 +30,9 @@ const InvitedUserList = (props: Props) => {
             />
             <AccessSelector
               value={user.permission}
-              onChange={(v: PERMISSION_LEVEL) => updatePermission(user.id, v)}
+              onChange={(v: PERMISSION_LEVEL) =>
+                handlePermissionChange(user.id, v)
+              }
             />
           </Group>
         ))}
@@ -61,7 +45,7 @@ export default InvitedUserList;
 
 const useStyles = createStyles((theme) => ({
   root: {
-    maxHeight: '12rem',
-    overflowY: 'auto',
-  }
+    maxHeight: "12rem",
+    overflowY: "auto",
+  },
 }));

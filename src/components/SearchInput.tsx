@@ -1,6 +1,6 @@
 import { createStyles, Input, TextInput } from "@mantine/core";
 import { forwardRef } from "react";
-import { User } from "../../types";
+import { User } from "../types";
 import UserPill from "./UserPill";
 
 interface Props extends React.ComponentPropsWithoutRef<"div"> {
