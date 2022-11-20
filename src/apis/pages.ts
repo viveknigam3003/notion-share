@@ -1,14 +1,20 @@
 import { config } from "../db/config";
+import { Page } from "../types";
 
-export const getPages = () => {
+export const getPages = (): Array<Page> => {
   const data = localStorage.getItem(config.pageDB) || "[]";
   return JSON.parse(data);
 };
 
-export const getPageConfig = (pageId: string = "page-1") => {
+export const getPageConfig = (pageId: string = "page-1"): Page => {
   // Get page config from local storage
   const data = getPages();
   const pageConfig = data.find((page: any) => page.id === pageId);
+  
+  if (!pageConfig) {
+    throw new Error("Page not found");
+  }
+
   return pageConfig;
 };
 

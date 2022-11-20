@@ -1,5 +1,6 @@
 import { Box, Button, createStyles, Group } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
+import { getAccessData } from "../../apis/getAccessData";
 import { updatePageConfig } from "../../apis/pages";
 import { getUsers } from "../../apis/users";
 import AccessSelector from "../../components/AccessSelector";
@@ -25,9 +26,11 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
   const { classes } = useStyles();
 
   useEffect(() => {
+    const accessData = getAccessData();
     // Get users from db
     if (users.length === 0) {
-      const data = getUsers();
+      // Filtering out users who are already added
+      const data = getUsers().filter(user => !accessData.find(d => d.id === user.id));
       setUsers(data);
       setFilteredUsers(data);
     }
