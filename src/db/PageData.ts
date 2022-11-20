@@ -5,11 +5,15 @@ export const PageDB: Array<Page> = [
     id: "page-1",
     sharedWith: [
       {
+        id: "0",
+        permission: PERMISSION_LEVEL.FULL,
+      },
+      {
         id: "1",
         permission: PERMISSION_LEVEL.FULL,
       },
       {
-        id: "4",
+        id: "6",
         permission: PERMISSION_LEVEL.FULL,
       },
       {
