@@ -19,7 +19,7 @@ const SearchUserModal = (props: Props) => {
   const [permissionLevel, setPermissionLevel] = useState<PERMISSION_LEVEL>(
     PERMISSION_LEVEL.VIEW
   );
-  const { classes } = useStyles({ hasUsers: selectedUsers.length > 0 });
+  const { classes } = useStyles();
 
   useEffect(() => {
     // Get users from db
@@ -121,23 +121,12 @@ const SearchUserModal = (props: Props) => {
 
 export default SearchUserModal;
 
-const useStyles = createStyles(
-  (theme, { hasUsers }: { hasUsers: boolean }) => ({
-    root: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      backgroundColor: theme.colors.gray[1],
-      padding: "0.75rem 1rem 0.75rem 1rem",
-    },
-
-    userList: {
-      padding: "1rem",
-    },
-    noUsers: {
-      fontSize: "0.75rem",
-      color: theme.colors.gray[6],
-      textAlign: "center",
-    },
-  })
-);
+const useStyles = createStyles((theme) => ({
+  root: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: theme.colors.gray[1],
+    padding: "0.75rem 1rem 0.75rem 1rem",
+  },
+}));
