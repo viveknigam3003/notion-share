@@ -1,4 +1,4 @@
-import { Button, createStyles, Popover } from "@mantine/core";
+import { Button, ButtonProps, createStyles, Popover } from "@mantine/core";
 import { useState } from "react";
 import { HiShare } from "react-icons/hi";
 import { ModalType } from "../types";
@@ -54,7 +54,10 @@ const DropdownContent: React.FC<ShareProps> = ({
   }
 };
 
-const ShareButton: React.FC<ShareProps> = (props) => {
+const ShareButton: React.FC<ShareProps & { buttonStyles?: ButtonProps }> = ({
+  buttonStyles,
+  ...props
+}) => {
   const { classes } = useStyles();
 
   return (
@@ -66,7 +69,7 @@ const ShareButton: React.FC<ShareProps> = (props) => {
       transition={"pop-top-right"}
     >
       <Popover.Target>
-        <Button color="dark" rightIcon={<HiShare />}>
+        <Button color="dark" rightIcon={<HiShare />} {...buttonStyles}>
           Share
         </Button>
       </Popover.Target>

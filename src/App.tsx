@@ -7,7 +7,7 @@ import { getAccessData } from "./apis/getAccessData";
 import {
   removePagePermissionForUser,
   updatePageConfig,
-  updatePagePermissionForUser,
+  updatePagePermissionForUser
 } from "./apis/pages";
 import { getUsers } from "./apis/users";
 import "./App.css";
@@ -95,9 +95,7 @@ function App() {
     setSelectedUsers(selectedUsers.filter((user) => user.id !== id));
 
     // Add user to users array
-    const newArray = [...users, user].sort((a, b) =>
-      Number(a) > Number(b) ? 1 : -1
-    );
+    const newArray = addUserToList(user);
 
     setUsers(newArray);
     return newArray;
@@ -113,7 +111,24 @@ function App() {
     }));
 
     updatePageConfig(invites);
+    setSelectedUsers([]);
     hydratePageShareData();
+  };
+
+  /**
+   * Creates a new array with the user added to the list and sorted by id.
+   * @param user User to add to list
+   * @returns New users array with the added user
+   */
+  const addUserToList = (user?: User): User[] => {
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const newArray = [...users, user].sort((a, b) =>
+      Number(a) > Number(b) ? 1 : -1
+    );
+    return newArray;
   };
 
   /**
@@ -124,6 +139,10 @@ function App() {
   const updateUserPermission = (id: string, permission: string) => {
     if (permission === PERMISSION_LEVEL.NO_ACCESS) {
       removePagePermissionForUser(id);
+
+      const user = pageShareData.find((user) => user.id === id);
+      const newArray = addUserToList(user);
+      setUsers(newArray);
     } else {
       updatePagePermissionForUser(id, permission);
     }
