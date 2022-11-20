@@ -2,25 +2,116 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/700.css";
 import { Box, createStyles } from "@mantine/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getAccessData } from "./apis/getAccessData";
+import { updatePageConfig } from "./apis/pages";
+import { getUsers } from "./apis/users";
 import "./App.css";
 import { config } from "./db/config";
 import { initDB } from "./db/init";
 import { PageDB } from "./db/PageData";
 import { UserDB } from "./db/UserData";
 import ShareButton from "./modules/ShareButton";
+import { PERMISSION_LEVEL, User } from "./types";
 
 function App() {
   const { classes } = useStyles();
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [permission, setPermission] = useState<PERMISSION_LEVEL>(
+    PERMISSION_LEVEL.VIEW
+  );
 
   useEffect(() => {
     initDB(config.pageDB, PageDB);
     initDB(config.userDB, UserDB);
   }, []);
 
+  useEffect(() => {
+    const accessData = getAccessData();
+    // Get users from db
+    if (users.length === 0) {
+      // Filtering out users who are already added
+      const data = getUsers().filter(
+        (user) => !accessData.find((d) => d.id === user.id)
+      );
+      setUsers(data);
+    }
+  }, []);
+
+  /**
+   * Adds user to selected users list.
+   * @param id User ID
+   * @returns void
+   */
+  const handleSelect = (id: string) => {
+    // Find user in users array
+    const user = users.find((user) => user.id === id);
+
+    // If user is not found, return
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Add user to selectedUsers array
+    setSelectedUsers([...selectedUsers, user]);
+
+    // Remove user from users array
+    const newUsers = users.filter((user) => user.id !== id);
+    setUsers(newUsers);
+
+    return newUsers;
+  };
+
+  /**
+   * Removes the user from selected users list.
+   * @param id User ID
+   * @returns void
+   */
+  const handleRemove = (id: string) => {
+    // Find user in selectedUsers array
+    const user = selectedUsers.find((user) => user.id === id);
+
+    // If user is not found, return
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Remove user from selectedUsers array
+    setSelectedUsers(selectedUsers.filter((user) => user.id !== id));
+
+    // Add user to users array
+    const newArray = [...users, user].sort((a, b) =>
+      Number(a) > Number(b) ? 1 : -1
+    );
+
+    setUsers(newArray);
+    return newArray;
+  };
+
+  /**
+   * Updates permission level for selected users.
+   */
+  const handleInvite = () => {
+    const invites = selectedUsers.map((user) => ({
+      id: user.id,
+      permission,
+    }));
+
+    updatePageConfig(invites);
+  };
+
   return (
     <Box className={classes.root}>
-      <ShareButton />
+      <ShareButton
+        users={users}
+        selectedUsers={selectedUsers}
+        permission={permission}
+        onSelect={handleSelect}
+        onRemove={handleRemove}
+        onInvite={handleInvite}
+        onPermissionChange={setPermission}
+      />
     </Box>
   );
 }

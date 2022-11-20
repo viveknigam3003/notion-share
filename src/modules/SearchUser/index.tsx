@@ -1,42 +1,41 @@
 import { Box, Button, createStyles, Group } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { getAccessData } from "../../apis/getAccessData";
-import { updatePageConfig } from "../../apis/pages";
-import { getUsers } from "../../apis/users";
 import AccessSelector from "../../components/AccessSelector";
 import FooterStrip from "../../components/FooterStrip";
 import LearnAboutSharing from "../../components/LearnAboutSharing";
-import { ModalType, PERMISSION_LEVEL, User } from "../../types";
 import SearchInput from "../../components/SearchInput";
+import { ModalType, PERMISSION_LEVEL, User } from "../../types";
 import UserList from "./UserList";
 
-interface Props {
+export interface SearchUserModalProps {
+  users: User[];
+  selectedUsers: User[];
+  permission: PERMISSION_LEVEL;
   updateModalType: (type: ModalType) => void;
+  onSelect: (userId: string) => User[];
+  onRemove: (user: string) => User[];
+  onInvite: () => void;
+  onPermissionChange: (permission: PERMISSION_LEVEL) => void;
 }
 
-const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
+const SearchUserModal: React.FC<SearchUserModalProps> = ({
+  users,
+  selectedUsers,
+  permission,
+  updateModalType,
+  onRemove,
+  onInvite,
+  onSelect,
+  onPermissionChange,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
-  const [users, setUsers] = useState<User[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-  const [permission, setPermission] = useState<PERMISSION_LEVEL>(
-    PERMISSION_LEVEL.VIEW
-  );
+  const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
   const { classes } = useStyles();
 
   useEffect(() => {
-    const accessData = getAccessData();
-    // Get users from db
-    if (users.length === 0) {
-      // Filtering out users who are already added
-      const data = getUsers().filter(
-        (user) => !accessData.find((d) => d.id === user.id)
-      );
-      setUsers(data);
-      setFilteredUsers(data);
-    }
-  }, []);
+    setFilteredUsers(users);
+  }, [users]);
 
   /**
    * Filter users based on search query.
@@ -52,24 +51,8 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
     setFilteredUsers(filterResults);
   };
 
-  /**
-   * Adds user to selected users list.
-   * @param id User ID
-   * @returns void
-   */
   const handleSelect = (id: string) => {
-    // Find user in users array
-    const user = users.find((user) => user.id === id);
-
-    // If user is not found, return
-    if (!user) return;
-
-    // Add user to selectedUsers array
-    setSelectedUsers([...selectedUsers, user]);
-
-    // Remove user from users array
-    const newUsers = users.filter((user) => user.id !== id);
-    setUsers(newUsers);
+    const newUsers = onSelect(id);
 
     // Clear search
     setSearch("");
@@ -79,43 +62,16 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
     inputRef.current?.focus();
   };
 
-  /**
-   * Removes the user from selected users list.
-   * @param id User ID
-   * @returns void
-   */
-  const handleRemove = (id: string) => {
-    // Find user in selectedUsers array
-    const user = selectedUsers.find((user) => user.id === id);
+  const handleRemove = (user: string) => {
+    const newArray = onRemove(user);
 
-    // If user is not found, return
-    if (!user) return;
-
-    // Remove user from selectedUsers array
-    setSelectedUsers(selectedUsers.filter((user) => user.id !== id));
-
-    // Add user to users array
-    const newArray = [...users, user].sort((a, b) =>
-      Number(a) > Number(b) ? 1 : -1
-    );
-
-    setUsers(newArray);
     setFilteredUsers(newArray);
 
-    // Focus on input
     inputRef.current?.focus();
   };
 
-  /**
-   * Updates permission level for selected users.
-   */
   const handleInvite = () => {
-    const invites = selectedUsers.map((user) => ({
-      id: user.id,
-      permission,
-    }));
-
-    updatePageConfig(invites);
+    onInvite();
     updateModalType(ModalType.NONE);
   };
 
@@ -130,10 +86,7 @@ const SearchUserModal: React.FC<Props> = ({ updateModalType }) => {
           removeSelected={handleRemove}
         />
         <Group spacing={"xs"} align={"start"}>
-          <AccessSelector
-            value={permission}
-            onChange={(v: PERMISSION_LEVEL) => setPermission(v)}
-          />
+          <AccessSelector value={permission} onChange={onPermissionChange} />
           <Button
             size="xs"
             color="gray"

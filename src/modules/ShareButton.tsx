@@ -3,11 +3,19 @@ import { useState } from "react";
 import { HiShare } from "react-icons/hi";
 import { ModalType } from "../types";
 import AccessControlModal from "./AccessControlModal";
-import SearchUserModal from "./SearchUser";
+import SearchUserModal, { SearchUserModalProps } from "./SearchUser";
 
-interface Props {}
+type ShareProps = Omit<SearchUserModalProps, "updateModalType">;
 
-const DropdownContent: React.FC = () => {
+const DropdownContent: React.FC<ShareProps> = ({
+  onInvite,
+  onPermissionChange,
+  onRemove,
+  onSelect,
+  users,
+  selectedUsers,
+  permission,
+}) => {
   const [modalOpened, setModalOpened] = useState<ModalType>(ModalType.NONE);
 
   const updateModalType = (modalType: ModalType) => {
@@ -16,13 +24,24 @@ const DropdownContent: React.FC = () => {
 
   switch (modalOpened) {
     case ModalType.SEARCH_USER:
-      return <SearchUserModal updateModalType={updateModalType} />;
+      return (
+        <SearchUserModal
+          updateModalType={updateModalType}
+          onInvite={onInvite}
+          onPermissionChange={onPermissionChange}
+          onRemove={onRemove}
+          onSelect={onSelect}
+          users={users}
+          selectedUsers={selectedUsers}
+          permission={permission}
+        />
+      );
     default:
       return <AccessControlModal updateModalType={updateModalType} />;
   }
 };
 
-const ShareButton = (props: Props) => {
+const ShareButton: React.FC<ShareProps> = (props) => {
   const { classes } = useStyles();
 
   return (
@@ -39,7 +58,7 @@ const ShareButton = (props: Props) => {
         </Button>
       </Popover.Target>
       <Popover.Dropdown className={classes.dropdown}>
-        <DropdownContent />
+        <DropdownContent {...props} />
       </Popover.Dropdown>
     </Popover>
   );
