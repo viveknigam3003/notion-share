@@ -27,11 +27,13 @@ function App() {
   );
   const [pageShareData, setPageShareData] = useState<PageShareObject[]>([]);
 
+  // Initialize DB (local storage for now)
   useEffect(() => {
     initDB(config.pageDB, PageDB);
     initDB(config.userDB, UserDB);
   }, []);
 
+  // Get users from DB and hydrate state
   useEffect(() => {
     const accessData = getAccessData();
     // Get users from db
@@ -44,10 +46,14 @@ function App() {
     }
   }, []);
 
+  // Get page share data from DB and hydrate state
   useEffect(() => {
     hydratePageShareData();
   }, []);
 
+  /**
+   * Hydrate page share data from DB
+   */
   const hydratePageShareData = () => {
     const data = getAccessData();
     setPageShareData(data);
