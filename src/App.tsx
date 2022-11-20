@@ -1,13 +1,13 @@
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/700.css";
-import { Box, createStyles } from "@mantine/core";
+import { Box, createStyles, Image, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { getAccessData } from "./apis/getAccessData";
 import {
   removePagePermissionForUser,
   updatePageConfig,
-  updatePagePermissionForUser
+  updatePagePermissionForUser,
 } from "./apis/pages";
 import { getUsers } from "./apis/users";
 import "./App.css";
@@ -15,6 +15,7 @@ import { config } from "./db/config";
 import { initDB } from "./db/init";
 import { PageDB } from "./db/PageData";
 import { UserDB } from "./db/UserData";
+import Content from "./modules/HomePage/Content";
 import ShareButton from "./modules/ShareButton";
 import { PageShareObject, PERMISSION_LEVEL, User } from "./types";
 
@@ -157,18 +158,22 @@ function App() {
   };
 
   return (
-    <Box className={classes.root}>
-      <ShareButton
-        users={users}
-        selectedUsers={selectedUsers}
-        permission={permission}
-        sharedUsers={pageShareData}
-        onSelect={handleSelect}
-        onRemove={handleRemove}
-        onInvite={handleInvite}
-        onPermissionChange={setPermission}
-        onUserPermissionChange={updateUserPermission}
-      />
+    <Box>
+      <Box className={classes.header}>
+        <Text className={classes.headerText}>Notion + OSlash Share</Text>
+        <ShareButton
+          users={users}
+          selectedUsers={selectedUsers}
+          permission={permission}
+          sharedUsers={pageShareData}
+          onSelect={handleSelect}
+          onRemove={handleRemove}
+          onInvite={handleInvite}
+          onPermissionChange={setPermission}
+          onUserPermissionChange={updateUserPermission}
+        />
+      </Box>
+      <Content />
     </Box>
   );
 }
@@ -176,10 +181,13 @@ function App() {
 export default App;
 
 const useStyles = createStyles((theme) => ({
-  root: {
-    width: "100%",
+  header: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    padding: "1rem 2rem",
+  },
+  headerText: {
+    fontWeight: 500,
   },
 }));
