@@ -1,9 +1,9 @@
 import { Box, Button, createStyles, Group } from "@mantine/core";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getUsers } from "../../apis/getUsers";
 import AccessSelector from "../../components/AccessSelector";
 import FooterStrip from "../../components/FooterStrip";
 import LearnAboutSharing from "../../components/LearnAboutSharing";
-import { UserDB } from "../../db/UserData";
 import { PERMISSION_LEVEL, User } from "../../types";
 import SearchInput from "./SearchInput";
 import UserList from "./UserList";
@@ -13,13 +13,22 @@ interface Props {}
 const SearchUserModal = (props: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
-  const [users, setUsers] = useState<User[]>(UserDB);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
+  const [users, setUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [permissionLevel, setPermissionLevel] = useState<PERMISSION_LEVEL>(
     PERMISSION_LEVEL.VIEW
   );
   const { classes } = useStyles({ hasUsers: selectedUsers.length > 0 });
+
+  useEffect(() => {
+    // Get users from db
+    if (users.length === 0) {
+      const data = getUsers();
+      setUsers(data);
+      setFilteredUsers(data);
+    }
+  }, []);
 
   const searchUsers = (search: string) => {
     setSearch(search);

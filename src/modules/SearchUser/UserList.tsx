@@ -1,12 +1,7 @@
-import { Box, Button, createStyles, Group } from "@mantine/core";
-import { Fragment, useRef, useState } from "react";
-import AccessSelector from "../../components/AccessSelector";
-import FooterStrip from "../../components/FooterStrip";
-import LearnAboutSharing from "../../components/LearnAboutSharing";
-import { UserDB } from "../../db/UserData";
-import { PERMISSION_LEVEL, User } from "../../types";
+import { Box, createStyles } from "@mantine/core";
+import { Fragment } from "react";
+import { User } from "../../types";
 import ItemGroup from "./ItemGroup";
-import SearchInput from "./SearchInput";
 
 interface EmptyStateProps {
   noUsersFound?: boolean;
