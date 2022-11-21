@@ -1,4 +1,5 @@
 import { createStyles, Input, TextInput } from "@mantine/core";
+import { getHotkeyHandler } from "@mantine/hooks";
 import { forwardRef } from "react";
 import { User } from "../types";
 import UserPill from "./UserPill";
@@ -56,6 +57,15 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
           autoFocus
           value={searchValue}
           onChange={(e) => handleSearch(e.currentTarget.value)}
+          onKeyDown={getHotkeyHandler([
+            ['Backspace', () => {
+              if (searchValue === "" && selectedUsers.length > 0) {
+                removeSelected(selectedUsers[selectedUsers.length - 1].id);
+              } else {
+                handleSearch(searchValue.slice(0, -1));
+              }
+            }],
+          ])}
         />
       </Input.Wrapper>
     );

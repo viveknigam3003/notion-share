@@ -1,17 +1,27 @@
 import { Box, createStyles, Group, Text } from "@mantine/core";
+import { getHotkeyHandler } from "@mantine/hooks";
 import UserAvatar from "../../components/UserAvatar";
 import { User } from "../../types";
 
 const SelectItem: React.FC<User & { onSelect: (id: string) => void }> = ({
-  id, 
+  id,
   users,
   avatar,
   name,
   onSelect,
 }) => {
   const { classes } = useStyles();
+
   return (
-    <Box className={classes.root} onClick={() => onSelect(id)} tabIndex={0}>
+    <Box
+      className={classes.root}
+      onClick={() => onSelect(id)}
+      tabIndex={0}
+      onKeyDown={getHotkeyHandler([
+        ["Enter", () => onSelect(id)],
+        ["Space", () => onSelect(id)],
+      ])}
+    >
       <Group noWrap spacing={"xs"}>
         <UserAvatar
           src={avatar}
