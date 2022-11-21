@@ -1,8 +1,7 @@
 import { Box, Text } from "@mantine/core";
-import { User } from "../types";
 import SelectItem from "../modules/SearchUser/SelectItem";
-import { useEffect, useRef } from "react";
 import { FocusIndex } from "../modules/SearchUser/useGroupedRoveFocus";
+import { User } from "../types";
 
 interface ItemGroupProps {
   /**
@@ -17,10 +16,8 @@ interface ItemGroupProps {
    * Callback to handle when an item is selected (clicked)
    */
   onSelect: (id: string) => void;
-  /**
-   * Total number of visible items in the group. Default is 3.
-   */
-  limit?: number;
+  groupIndex: number;
+  focusIndex: FocusIndex;
 }
 
 export const ITEM_GROUP_LIMIT = 3;
@@ -29,7 +26,8 @@ const ItemGroup: React.FC<ItemGroupProps> = ({
   title,
   data,
   onSelect,
-  limit = ITEM_GROUP_LIMIT,
+  groupIndex,
+  focusIndex,
 }) => {
   if (data.length === 0) return null;
 
@@ -38,8 +36,15 @@ const ItemGroup: React.FC<ItemGroupProps> = ({
       <Text size="sm" weight={500} pb={"xs"}>
         {title}
       </Text>
-      {data.slice(0, limit).map((user, index) => (
-        <SelectItem key={user.id} {...user} onSelect={onSelect} />
+      {data.map((user, index) => (
+        <SelectItem
+          key={user.id}
+          {...user}
+          onSelect={onSelect}
+          selected={
+            groupIndex === focusIndex.group && focusIndex.item === index
+          }
+        />
       ))}
     </Box>
   );

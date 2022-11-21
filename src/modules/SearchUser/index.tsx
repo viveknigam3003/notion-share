@@ -9,7 +9,7 @@ import UserList from "./UserList";
 
 export interface SearchUserModalProps {
   /**
-   * Array of users 
+   * Array of users
    */
   users: User[];
   /**

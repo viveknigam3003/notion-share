@@ -1,16 +1,25 @@
 import { Box, createStyles, Group, Text } from "@mantine/core";
 import { getHotkeyHandler } from "@mantine/hooks";
+import { useEffect, useRef } from "react";
 import UserAvatar from "../../components/UserAvatar";
 import { User } from "../../types";
 
-const SelectItem: React.FC<User & { onSelect: (id: string) => void }> = ({
+const SelectItem: React.FC<User & { onSelect: (id: string) => void, selected: boolean }> = ({
   id,
   users,
   avatar,
   name,
   onSelect,
+  selected,
 }) => {
+  const itemRef = useRef<HTMLDivElement>(null);
   const { classes } = useStyles();
+
+  useEffect(() => {
+    if (selected) {
+      itemRef.current?.focus();
+    }
+  }, [selected]);
 
   return (
     <Box
@@ -21,6 +30,7 @@ const SelectItem: React.FC<User & { onSelect: (id: string) => void }> = ({
         ["Enter", () => onSelect(id)],
         ["Space", () => onSelect(id)],
       ])}
+      ref={itemRef}
     >
       <Group noWrap spacing={"xs"}>
         <UserAvatar

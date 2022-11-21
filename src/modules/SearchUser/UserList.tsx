@@ -1,10 +1,9 @@
 import { Box, createStyles } from "@mantine/core";
-import { useHotkeys } from "@mantine/hooks";
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment } from "react";
 import EmptyState from "../../components/EmptyState";
 import ItemGroup, { ITEM_GROUP_LIMIT } from "../../components/ItemGroup";
 import { User } from "../../types";
-import { FocusIndex, useGroupedRoveFocus } from "./useGroupedRoveFocus";
+import { useGroupedRoveFocus } from "./useGroupedRoveFocus";
 
 interface UserListProps {
   /**
@@ -29,16 +28,21 @@ const UserList: React.FC<UserListProps> = ({
   const groups = [
     {
       title: "Search a person",
-      data: users.filter((user) => !user.users),
+      data: users.filter((user) => !user.users).slice(0, ITEM_GROUP_LIMIT),
       onSelect: onSelect,
     },
     {
       title: "Search a group",
-      data: users.filter((user) => user.users && user.users.length > 0),
+      data: users
+        .filter((user) => user.users && user.users.length > 0)
+        .slice(0, ITEM_GROUP_LIMIT),
       onSelect: onSelect,
     },
   ];
-
+  const [focusIndex, setFocusIndex] = useGroupedRoveFocus(
+    ITEM_GROUP_LIMIT,
+    groups.length
+  );
   const { classes } = useStyles();
 
   return (
@@ -49,6 +53,8 @@ const UserList: React.FC<UserListProps> = ({
             <ItemGroup
               {...group}
               key={group.title}
+              groupIndex={index}
+              focusIndex={focusIndex}
             />
           ))}
         </Fragment>
