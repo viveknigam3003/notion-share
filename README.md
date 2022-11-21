@@ -27,7 +27,20 @@ There are two primary modals that could be triggered using this button.
 
 ### How it works?
 
-Viewing users with access to page
+1. Viewing users with access to page
+You can click on the share button to see who all has access and at what level (view, edit, full). You can directly change access from the modal.
+
+<img width="352" alt="Screenshot 2022-11-21 at 10 06 34 AM" src="https://user-images.githubusercontent.com/30192068/203039600-efc0137b-b054-4787-afd2-dcabe2bb37a6.gif">
+
+2. Adding more users
+Click on the input box to open another modal to invite more users or user groups and provide them access. The updated list of users will show up in the previous modal.
+
+<img width="352" alt="Screenshot 2022-11-21 at 10 06 34 AM" src="https://user-images.githubusercontent.com/30192068/203040563-681db434-b5b3-43d3-a907-ab9623da5cf6.gif">
+
+3. Working with a keyboard
+You can completely use this component without a mouse, just use tab or arrow keys to switch selected item, and space/enter to select.
+
+<img width="352" alt="Screenshot 2022-11-21 at 10 06 34 AM" src="https://user-images.githubusercontent.com/30192068/203040586-d5a22669-9789-4718-bf1a-aaaefef97191.gif">
 
 ## Technical Details
 
