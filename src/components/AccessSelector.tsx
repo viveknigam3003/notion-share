@@ -41,20 +41,21 @@ export default AccessSelector;
 const useStyles = createStyles((theme) => ({
   itemsWrapper: {
     '& [data-selected="true"]': {
-      backgroundColor: theme.colors.gray[1],
-      color: theme.colors.dark[8],
-      "&:hover": {
-        backgroundColor: theme.colors.gray[1],
-      },
+      backgroundColor: `${theme.colors.gray[3]} !important`,
+      color: `${theme.colors.dark[8]} !important`,
     },
-    '& [aria-selected="true"]': {
-      backgroundColor: theme.colors.gray[2],
-      color: theme.colors.dark[8],
+    '& [data-hovered="true"][data-selected="false"]': {
+      backgroundColor: `${theme.colors.gray[1]} !important`,
+      color: `${theme.colors.dark[8]}`,
     },
+
     "& :last-child": {
       color: theme.colors.red[6],
       '[data-selected="true"]': {
-        color: theme.colors.red[6],
+        color: `${theme.colors.red[6]}`,
+      },
+      '[data-hovered="true"]': {
+        color: `${theme.colors.red[6]}`,
       },
     },
   },
