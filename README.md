@@ -166,3 +166,6 @@ export const config = {
   userDB: "oslash-users",
 };
 ```
+
+### Maintainer
+Built by Vivek Nigam for OSlash
