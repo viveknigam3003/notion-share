@@ -34,8 +34,7 @@ const Content = () => {
             <li>Customizable with props</li>
             <li>Implememented with native React state management principles</li>
             <li>
-              Unopiniated way of handling operations like searching, selecting,
-              and sharing access
+            Provides customizable implementation for selecting users, searching, etc.
             </li>
             <li>
               Adding, removing and updating users for 3 access levels - View,

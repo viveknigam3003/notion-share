@@ -58,10 +58,7 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
   const [search, setSearch] = useState("");
   const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
   const { classes } = useStyles();
-  const [focusIndex, setFocusIndex] = useGroupedRoveFocus(
-    ITEM_GROUP_LIMIT,
-    2
-  );
+  const [focusIndex, setFocusIndex] = useGroupedRoveFocus(ITEM_GROUP_LIMIT, 2);
 
   useEffect(() => {
     setFilteredUsers(users);
@@ -69,15 +66,15 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
 
   useEffect(() => {
     if (document.activeElement === inputRef.current) {
-      setFocusIndex({group: -1, item: -1});
+      setFocusIndex({ group: -1, item: -1 });
     }
-  }, [document.activeElement])
+  }, [document.activeElement]);
 
   useEffect(() => {
     if (focusIndex.group === -1 && focusIndex.item === -1) {
       inputRef.current?.focus();
     }
-  }, [focusIndex])
+  }, [focusIndex]);
 
   /**
    * Filter users based on search query.
@@ -102,7 +99,7 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
 
     // Focus on input
     inputRef.current?.focus();
-    setFocusIndex({group: -1, item: -1});
+    setFocusIndex({ group: -1, item: -1 });
   };
 
   const handleRemove = (user: string) => {
@@ -111,7 +108,7 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
     setFilteredUsers(newArray);
 
     inputRef.current?.focus();
-    setFocusIndex({group: -1, item: -1});
+    setFocusIndex({ group: -1, item: -1 });
   };
 
   const handleInvite = () => {

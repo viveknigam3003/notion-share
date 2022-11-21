@@ -9,10 +9,6 @@ export const useGroupedRoveFocus = (
   const initialValue = { group: -1, item: -1 }; // -1,-1 index means input is focused
   const [focusIndex, setFocusIndex] = useState<FocusIndex>(initialValue);
 
-  useEffect(() => {
-    console.log('focusIndex', `${focusIndex.group}-${focusIndex.item}`);
-  }, [focusIndex]);
-
   const shiftItemUp = () => {
     setFocusIndex((prev) => {
       if (prev.item <= 0) {
