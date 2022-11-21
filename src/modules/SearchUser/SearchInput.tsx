@@ -1,8 +1,8 @@
 import { createStyles, Input, TextInput } from "@mantine/core";
 import { getHotkeyHandler } from "@mantine/hooks";
 import { forwardRef } from "react";
-import { User } from "../types";
-import UserPill from "./UserPill";
+import { User } from "../../types";
+import UserPill from "../../components/UserPill";
 
 interface SearchInputProps extends React.ComponentPropsWithoutRef<"div"> {
   /**
