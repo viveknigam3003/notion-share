@@ -1,8 +1,10 @@
 import { Box, createStyles } from "@mantine/core";
-import { Fragment } from "react";
+import { useHotkeys } from "@mantine/hooks";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import EmptyState from "../../components/EmptyState";
-import ItemGroup from "../../components/ItemGroup";
+import ItemGroup, { ITEM_GROUP_LIMIT } from "../../components/ItemGroup";
 import { User } from "../../types";
+import { FocusIndex, useGroupedRoveFocus } from "./useGroupedRoveFocus";
 
 interface UserListProps {
   /**
@@ -19,22 +21,36 @@ interface UserListProps {
   showEmptyState?: boolean;
 }
 
-const UserList: React.FC<UserListProps> = ({ users, onSelect, showEmptyState }) => {
+const UserList: React.FC<UserListProps> = ({
+  users,
+  onSelect,
+  showEmptyState,
+}) => {
+  const groups = [
+    {
+      title: "Search a person",
+      data: users.filter((user) => !user.users),
+      onSelect: onSelect,
+    },
+    {
+      title: "Search a group",
+      data: users.filter((user) => user.users && user.users.length > 0),
+      onSelect: onSelect,
+    },
+  ];
+
   const { classes } = useStyles();
+
   return (
     <Box className={classes.userList}>
       {users.length ? (
         <Fragment>
-          <ItemGroup
-            title="Search a person"
-            data={users.filter((user) => !user.users)}
-            onSelect={onSelect}
-          />
-          <ItemGroup
-            title="Search a group"
-            data={users.filter((user) => user.users && user.users.length > 0)}
-            onSelect={onSelect}
-          />
+          {groups.map((group, index) => (
+            <ItemGroup
+              {...group}
+              key={group.title}
+            />
+          ))}
         </Fragment>
       ) : (
         <EmptyState noUsersFound={showEmptyState} />
