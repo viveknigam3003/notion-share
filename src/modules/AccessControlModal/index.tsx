@@ -9,8 +9,17 @@ import InviteUserSearch from "./InviteUserSearch";
 import ShareToWeb from "./ShareToWeb";
 
 export interface AccessControlModalProps {
+  /**
+   * Array of users/groups with their access level
+   */
   sharedUsers: PageShareObject[];
+  /**
+   * Callback to update the modal opened - One modal is for all the sharing options, other is for searching users.
+   */
   updateModalType: (modalType: ModalType) => void;
+  /**
+   * Callback to handle when a users access level is changed in Sharing modal
+   */
   onUserPermissionChange: (id: string, permission: string) => void;
 }
 

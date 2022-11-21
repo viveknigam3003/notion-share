@@ -1,11 +1,18 @@
 import { Box, createStyles } from "@mantine/core";
 import React from "react";
 
-interface Props {}
-
 interface EmptyStateProps {
+  /**
+   * Boolean to show/hide empty state
+   */
   noUsersFound?: boolean;
+  /**
+   * Message to show when the search returns no results
+   */
   noUsersFoundMessage?: string;
+  /**
+   * Message to show when search is empty but no more users left to add
+   */
   emptyStatePrompt?: string;
 }
 

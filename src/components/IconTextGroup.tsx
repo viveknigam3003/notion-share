@@ -1,12 +1,25 @@
 import { Box, createStyles, Group, Text } from "@mantine/core";
 
-interface Props {
+interface IconTextGroupProps {
+  /**
+   * Title for the group. Could be a name or a label
+   */
   title: string;
+  /**
+   * Secondary line of text to show under the title
+   */
   description?: string;
+  /**
+   * Icon to show on the left side of the group
+   */
   leftNode?: React.ReactNode;
 }
 
-const IconTextGroup: React.FC<Props> = ({ title, description, leftNode }) => {
+const IconTextGroup: React.FC<IconTextGroupProps> = ({
+  title,
+  description,
+  leftNode,
+}) => {
   const { classes } = useStyles();
   return (
     <Group align={"center"} className={classes.group}>

@@ -1,4 +1,9 @@
-export const initDB = (key: string, data: any) => {
+/**
+ * Initialize the local storage with default data
+ * @param key Key for local storage
+ * @param data Data to initialize local storage with
+ */
+export const initDB = (key: string, data: any): void => {
   if (typeof window === 'undefined' || !window.localStorage) {
     return;
   }

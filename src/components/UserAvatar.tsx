@@ -1,11 +1,14 @@
 import { Avatar, AvatarProps } from "@mantine/core";
 import React from "react";
 
-interface Props extends AvatarProps {
+interface UserAvatarProps extends AvatarProps {
+  /**
+   * Boolean to indicate if the data passed is for a user or a group
+   */
   isGroup?: boolean;
 }
 
-const UserAvatar: React.FC<Props> = ({ isGroup, src, alt, size, ...rest }) => {
+const UserAvatar: React.FC<UserAvatarProps> = ({ isGroup, src, alt, size, ...rest }) => {
   const userAvatarProps: AvatarProps = !isGroup
     ? {
         radius: "xl",

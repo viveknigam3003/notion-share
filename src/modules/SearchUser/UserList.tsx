@@ -4,13 +4,22 @@ import EmptyState from "../../components/EmptyState";
 import ItemGroup from "../../components/ItemGroup";
 import { User } from "../../types";
 
-interface Props {
+interface UserListProps {
+  /**
+   * Array of users
+   */
   users: User[];
+  /**
+   * Callback to handle when a user is selected in Search modal
+   */
   onSelect: (id: string) => void;
+  /**
+   * Boolean to check if the user list is empty
+   */
   showEmptyState?: boolean;
 }
 
-const UserList: React.FC<Props> = ({ users, onSelect, showEmptyState }) => {
+const UserList: React.FC<UserListProps> = ({ users, onSelect, showEmptyState }) => {
   const { classes } = useStyles();
   return (
     <Box className={classes.userList}>

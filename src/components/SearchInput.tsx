@@ -3,15 +3,30 @@ import { forwardRef } from "react";
 import { User } from "../types";
 import UserPill from "./UserPill";
 
-interface Props extends React.ComponentPropsWithoutRef<"div"> {
+interface SearchInputProps extends React.ComponentPropsWithoutRef<"div"> {
+  /**
+   * Search value for the input
+   */
   searchValue: string;
+  /**
+   * List of selected users to show as pills
+   */
   selectedUsers: User[];
+  /**
+   * Callback to handle when the search input changes
+   */
   handleSearch: (search: string) => void;
+  /**
+   * Callback to handle when a user is removed from the selected list
+   */
   removeSelected: (id: string) => void;
+  /**
+   * Placeholder text for the search input
+   */
   placeholder?: string;
 }
 
-const SearchInput = forwardRef<HTMLInputElement, Props>(
+const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   (
     {
       searchValue,
@@ -26,7 +41,11 @@ const SearchInput = forwardRef<HTMLInputElement, Props>(
     return (
       <Input.Wrapper className={classes.inputWrapper}>
         {selectedUsers.map((user) => (
-          <UserPill key={user.id} selectedUser={user} handleRemove={removeSelected} />
+          <UserPill
+            key={user.id}
+            selectedUser={user}
+            handleRemove={removeSelected}
+          />
         ))}
         <TextInput
           ref={ref}

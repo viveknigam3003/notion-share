@@ -3,7 +3,13 @@ import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
 import ModalSection from "./ModalSection";
 
 interface Props {
+  /**
+   * Left side items for the footer strip
+   */
   leftItems?: React.ReactNode;
+  /**
+   * Right side items for the footer strip
+   */
   rightItems?: React.ReactNode;
 }
 

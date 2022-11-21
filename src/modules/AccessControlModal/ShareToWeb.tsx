@@ -4,9 +4,7 @@ import IconTextGroup from "../../components/IconTextGroup";
 import ModalSection from "../../components/ModalSection";
 import ThemedSwitch from "../../components/ThemedSwitch";
 
-interface Props {}
-
-const ShareToWeb = (props: Props) => {
+const ShareToWeb = () => {
   return (
     <ModalSection>
       <Group align={"center"} position="apart">

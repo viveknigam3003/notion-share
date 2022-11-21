@@ -2,11 +2,14 @@ import { Button, createStyles, TextInput } from "@mantine/core";
 import ModalSection from "../../components/ModalSection";
 import { ModalType } from "../../types";
 
-interface Props {
+interface InviteUserSearchProps {
+  /**
+   * Callback to handle and update the type of modal opened
+   */
   updateModalType: (modalType: ModalType) => void;
 }
 
-const InviteUserSearch = (props: Props) => {
+const InviteUserSearch = (props: InviteUserSearchProps) => {
   const { classes } = useStyles();
 
   const handleClick = () => {

@@ -1,5 +1,8 @@
 import { User } from "../types";
 
+/**
+ * Dummy User Data to initialize local storage
+ */
 export const UserDB: Array<User> = [
   {
     id: "0",

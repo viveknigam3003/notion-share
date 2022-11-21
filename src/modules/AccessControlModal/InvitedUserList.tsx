@@ -5,12 +5,18 @@ import ModalSection from "../../components/ModalSection";
 import UserAvatar from "../../components/UserAvatar";
 import { PageShareObject, PERMISSION_LEVEL } from "../../types";
 
-interface Props {
+interface InvitedUserListProps {
+  /**
+   * Array of users/groups with their access level
+   */
   userList: PageShareObject[];
+  /**
+   * Callback to handle when a users access level is changed in Sharing modal
+   */
   handlePermissionChange: (id: string, permission: string) => void;
 }
 
-const InvitedUserList: React.FC<Props> = ({
+const InvitedUserList: React.FC<InvitedUserListProps> = ({
   userList,
   handlePermissionChange,
 }) => {

@@ -1,5 +1,8 @@
 import { Page, PERMISSION_LEVEL } from "../types";
 
+/**
+ * Dummy Page Data to initialize local storage
+ */
 export const PageDB: Array<Page> = [
   {
     id: "page-1",

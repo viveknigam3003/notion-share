@@ -3,7 +3,7 @@ import UserAvatar from "../../components/UserAvatar";
 import { User } from "../../types";
 
 const SelectItem: React.FC<User & { onSelect: (id: string) => void }> = ({
-  id,
+  id, 
   users,
   avatar,
   name,

@@ -8,13 +8,37 @@ import { ModalType, PERMISSION_LEVEL, User } from "../../types";
 import UserList from "./UserList";
 
 export interface SearchUserModalProps {
+  /**
+   * Array of users 
+   */
   users: User[];
+  /**
+   * Array of selected users
+   */
   selectedUsers: User[];
+  /**
+   * Permission level for the selected group of users/group.
+   */
   permission: PERMISSION_LEVEL;
+  /**
+   * Callback to update the modal opened - One modal is for all the sharing options, other is for searching users.
+   */
   updateModalType: (type: ModalType) => void;
+  /**
+   * Callback to handle when a user is selected in Search modal
+   */
   onSelect: (userId: string) => User[];
+  /**
+   * Callback to handle when a user is removed in Search modal
+   */
   onRemove: (user: string) => User[];
+  /**
+   * Callback to handle the permission level of the selected users
+   */
   onInvite: () => void;
+  /**
+   * Callback to change the permission level of the selected users
+   */
   onPermissionChange: (permission: PERMISSION_LEVEL) => void;
 }
 

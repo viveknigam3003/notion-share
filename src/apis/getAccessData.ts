@@ -2,6 +2,11 @@ import { Page, PageShareObject, SharedWith, User } from "../types";
 import { getPageConfig } from "./pages";
 import { getUsers } from "./users";
 
+/**
+ * API to get all access data for a page with user details
+ * @param pageId Page ID to get access data for
+ * @returns Combined data of users and page access
+ */
 export const getAccessData = (
   pageId: string = "page-1"
 ): Array<PageShareObject> => {

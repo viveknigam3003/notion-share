@@ -2,12 +2,18 @@ import { ActionIcon, Box, createStyles } from "@mantine/core";
 import { HiX } from "react-icons/hi";
 import { User } from "../types";
 
-interface Props {
+interface UserPillProps {
+  /**
+   * User object to render
+   */
   selectedUser: User;
+  /**
+   * Callback to handle when the user is removed
+   */
   handleRemove: (id: string) => void;
 }
 
-const UserPill: React.FC<Props> = ({ selectedUser, handleRemove }) => {
+const UserPill: React.FC<UserPillProps> = ({ selectedUser, handleRemove }) => {
   const { classes } = useStyles();
 
   return (
