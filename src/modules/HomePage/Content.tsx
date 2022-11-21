@@ -1,8 +1,18 @@
-import { Box, createStyles, Text, Title } from "@mantine/core";
+import { Box, Button, createStyles, Group, Text, Title } from "@mantine/core";
 import { CgArrowTopRight } from "react-icons/cg";
+import { config } from "../../db/config";
+import { purgeDB } from "../../db/purgeDB";
 
 const Content = () => {
   const { classes } = useStyles();
+
+  const handleDBReset = () => {
+    purgeDB(config.pageDB);
+    purgeDB(config.userDB);
+
+    window.location.reload();
+  };
+  
   return (
     <Box className={classes.contentWrapper}>
       <Box className={classes.content}>
@@ -43,6 +53,21 @@ const Content = () => {
           Github.
         </Text>
       </Box>
+      <Group position="left" className={classes.resetGroup}>
+        <Text color="gray">
+          {" "}
+          If in case you wish to restart the demo, you can clear the local
+          storage.
+        </Text>
+        <Button
+          onClick={handleDBReset}
+          variant="outline"
+          size="xs"
+          color="dark"
+        >
+          Reset Local DB
+        </Button>
+      </Group>
       <Text className={classes.footer}>
         Built by{" "}
         <a href="https://www.linkedin.com/in/viveknigam3003">Vivek Nigam</a> for{" "}
@@ -69,13 +94,13 @@ const useStyles = createStyles((theme) => ({
     padding: "3rem 0",
   },
   title: {
-    fontSize: "2rem",
+    fontSize: "2.5rem",
     [`@media (min-width: ${theme.breakpoints.md}px)`]: {
       fontSize: "3.5rem",
     },
   },
   p: {
-    fontSize: "1.5rem",
+    fontSize: "1rem",
     [`@media (min-width: ${theme.breakpoints.md}px)`]: {
       fontSize: "1.25rem",
     },
@@ -93,8 +118,17 @@ const useStyles = createStyles((theme) => ({
     marginLeft: "0.25rem",
     padding: 0,
   },
+  resetGroup: {
+    width: "100%",
+    [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+      width: "50%",
+    },
+  },
   footer: {
-    width: "50%",
+    width: "100%",
+    [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+      width: "50%",
+    },
     textAlign: "left",
     fontSize: "1rem",
     padding: "1rem 0",
