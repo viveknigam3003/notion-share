@@ -11,7 +11,7 @@ const SelectItem: React.FC<User & { onSelect: (id: string) => void }> = ({
 }) => {
   const { classes } = useStyles();
   return (
-    <Box className={classes.root} onClick={() => onSelect(id)}>
+    <Box className={classes.root} onClick={() => onSelect(id)} tabIndex={0}>
       <Group noWrap spacing={"xs"}>
         <UserAvatar
           src={avatar}
@@ -34,6 +34,13 @@ const useStyles = createStyles((theme) => ({
     borderRadius: "0.25rem",
     "&:hover": {
       backgroundColor: theme.colors.gray[1],
+    },
+    "&:focus:not(:focus-visible)": {
+      outline: "none",
+    },
+    "&:focus-visible": {
+      borderRadius: theme.radius.sm,
+      outline: `2px solid ${theme.colors.violet[5]}`,
     },
   },
 }));
