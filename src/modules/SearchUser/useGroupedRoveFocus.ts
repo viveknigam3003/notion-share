@@ -6,10 +6,8 @@ export const useGroupedRoveFocus = (
   groupSize: number,
   totalGroups: number
 ): [FocusIndex, (op: { group: number; item: number }) => void] => {
-  const [focusIndex, setFocusIndex] = useState<FocusIndex>({
-    group: -1,
-    item: -1,
-  });
+  const initialValue = { group: -1, item: -1 }; // -1,-1 index means input is focused
+  const [focusIndex, setFocusIndex] = useState<FocusIndex>(initialValue);
 
   useEffect(() => {
     console.log('focusIndex', `${focusIndex.group}-${focusIndex.item}`);
@@ -17,9 +15,9 @@ export const useGroupedRoveFocus = (
 
   const shiftItemUp = () => {
     setFocusIndex((prev) => {
-      if (prev.item === 0) {
-        if (prev.group === 0) {
-          return prev;
+      if (prev.item <= 0) {
+        if (prev.group <= 0) {
+          return initialValue;
         } else {
           return { group: prev.group - 1, item: groupSize - 1 };
         }
@@ -30,8 +28,12 @@ export const useGroupedRoveFocus = (
 
   const shiftItemDown = () => {
     setFocusIndex((prev) => {
-      if (prev.item === groupSize - 1) {
-        if (prev.group === totalGroups - 1) {
+      if (prev.group < 0, prev.item < 0) {
+        return { group: 0, item: 0 };
+      }
+
+      if (prev.item >= groupSize - 1) {
+        if (prev.group >= totalGroups - 1) {
           return prev;
         } else {
           return { group: prev.group + 1, item: 0 };

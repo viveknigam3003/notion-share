@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import EmptyState from "../../components/EmptyState";
 import ItemGroup, { ITEM_GROUP_LIMIT } from "../../components/ItemGroup";
 import { User } from "../../types";
-import { useGroupedRoveFocus } from "./useGroupedRoveFocus";
+import { FocusIndex, useGroupedRoveFocus } from "./useGroupedRoveFocus";
 
 interface UserListProps {
   /**
@@ -18,12 +18,15 @@ interface UserListProps {
    * Boolean to check if the user list is empty
    */
   showEmptyState?: boolean;
+
+  focusIndex: FocusIndex;
 }
 
 const UserList: React.FC<UserListProps> = ({
   users,
   onSelect,
   showEmptyState,
+  focusIndex,
 }) => {
   const groups = [
     {
@@ -39,10 +42,6 @@ const UserList: React.FC<UserListProps> = ({
       onSelect: onSelect,
     },
   ];
-  const [focusIndex, setFocusIndex] = useGroupedRoveFocus(
-    ITEM_GROUP_LIMIT,
-    groups.length
-  );
   const { classes } = useStyles();
 
   return (

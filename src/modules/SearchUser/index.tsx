@@ -2,9 +2,11 @@ import { Box, Button, createStyles, Group } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import AccessSelector from "../../components/AccessSelector";
 import FooterStrip from "../../components/FooterStrip";
+import { ITEM_GROUP_LIMIT } from "../../components/ItemGroup";
 import LearnAboutSharing from "../../components/LearnAboutSharing";
 import { ModalType, PERMISSION_LEVEL, User } from "../../types";
 import SearchInput from "./SearchInput";
+import { useGroupedRoveFocus } from "./useGroupedRoveFocus";
 import UserList from "./UserList";
 
 export interface SearchUserModalProps {
@@ -56,10 +58,26 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
   const [search, setSearch] = useState("");
   const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
   const { classes } = useStyles();
+  const [focusIndex, setFocusIndex] = useGroupedRoveFocus(
+    ITEM_GROUP_LIMIT,
+    2
+  );
 
   useEffect(() => {
     setFilteredUsers(users);
   }, [users]);
+
+  useEffect(() => {
+    if (document.activeElement === inputRef.current) {
+      setFocusIndex({group: -1, item: -1});
+    }
+  }, [document.activeElement])
+
+  useEffect(() => {
+    if (focusIndex.group === -1 && focusIndex.item === -1) {
+      inputRef.current?.focus();
+    }
+  }, [focusIndex])
 
   /**
    * Filter users based on search query.
@@ -84,6 +102,7 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
 
     // Focus on input
     inputRef.current?.focus();
+    setFocusIndex({group: -1, item: -1});
   };
 
   const handleRemove = (user: string) => {
@@ -92,6 +111,7 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
     setFilteredUsers(newArray);
 
     inputRef.current?.focus();
+    setFocusIndex({group: -1, item: -1});
   };
 
   const handleInvite = () => {
@@ -129,6 +149,7 @@ const SearchUserModal: React.FC<SearchUserModalProps> = ({
         users={filteredUsers}
         onSelect={handleSelect}
         showEmptyState={search.length > 0}
+        focusIndex={focusIndex}
       />
       <FooterStrip leftItems={<LearnAboutSharing />} />
     </Box>
