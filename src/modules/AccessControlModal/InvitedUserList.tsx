@@ -26,7 +26,7 @@ const InvitedUserList: React.FC<InvitedUserListProps> = ({
     <ModalSection pt="0" className={classes.root}>
       <Stack>
         {userList.map((user) => (
-          <Group position="apart" key={user.id}>
+          <Group position="apart" key={user.id} className={classes.rowItem}>
             <IconTextGroup
               title={user.name}
               description={
@@ -53,5 +53,11 @@ const useStyles = createStyles((theme) => ({
   root: {
     maxHeight: "12rem",
     overflowY: "auto",
+  },
+  rowItem: {
+    "& :focus": {
+      borderRadius: theme.radius.sm,
+      outline: `2px solid ${theme.colors.violet[5]}`,
+    },
   },
 }));
