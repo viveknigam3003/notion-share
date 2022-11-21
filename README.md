@@ -134,6 +134,7 @@ The component uses React's native state management principles using functional c
 |`onPermissionChange`|Callback to handle when the permission of selected users is updated|
 |`onUserPermissionChange`|Callback to handle when permission for a single user is updated|
 |`onInvite`|Callback to handle the permission update for selected users in search modal|
+|`buttonStyles`|Object to pass to the button for styling. Refer to [Mantine Button](https://mantine.dev/core/button/) for details|
 
 The provided `App()` component wraps the `ShareButton` component and provides an implementation of all the functionalities of the `ShareButton` with `LocalStorage` as DB to persist data state between page reloads.
 
