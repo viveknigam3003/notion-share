@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import AccessSelector from "../../components/AccessSelector";
 import FooterStrip from "../../components/FooterStrip";
 import LearnAboutSharing from "../../components/LearnAboutSharing";
-import SearchInput from "../../components/SearchInput";
 import { ModalType, PERMISSION_LEVEL, User } from "../../types";
+import SearchInput from "./SearchInput";
 import UserList from "./UserList";
 
 export interface SearchUserModalProps {
