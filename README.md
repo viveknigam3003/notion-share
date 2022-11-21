@@ -14,7 +14,7 @@ It provides an customizable implementatio of handling operations like searching,
 
 ### Overview
 
-The Notion Share Button (NSB) is a react based component written in TypeScript and supports operations like searching, selecting, and modifying access for users.
+The Notion Share Button is a react based component written in TypeScript and supports operations like searching, selecting, and modifying access for users.
 It uses [Mantine UI Libary](https://mantine.dev/) under the hood but also holds custom implementations of multiple sub components for greater flexibility.
 
 There are two primary modals that could be triggered using this button.
@@ -32,7 +32,7 @@ Viewing users with access to page
 ## Technical Details
 
 Developed on node version 16 using yarn for package management. You can switch to the required version of node using this command in your terminal (if you use nvm for node package management)
-```
+```shell
 nvm use
 ```
 
