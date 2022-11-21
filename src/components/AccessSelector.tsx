@@ -61,5 +61,12 @@ const useStyles = createStyles((theme) => ({
   input: {
     width: "6.25rem",
     color: theme.colors.gray[6],
+    "&:focus:not(.focus-visible)": {
+      outline: "none",
+    },
+    "&:focus-visible": {
+      borderRadius: theme.radius.sm,
+      outline: `2px solid ${theme.colors.violet[5]}`,
+    },
   },
 }));

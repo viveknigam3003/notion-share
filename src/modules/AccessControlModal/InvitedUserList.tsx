@@ -55,7 +55,10 @@ const useStyles = createStyles((theme) => ({
     overflowY: "auto",
   },
   rowItem: {
-    "& :focus": {
+    "&:focus:not(:focus-visible)": {
+      outline: "none",
+    },
+    "&:focus-visible": {
       borderRadius: theme.radius.sm,
       outline: `2px solid ${theme.colors.violet[5]}`,
     },
