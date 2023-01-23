@@ -169,4 +169,4 @@ export const config = {
 ```
 
 ### Maintainer
-Built by Vivek Nigam for OSlash
+Built by Vivek Nigam 
