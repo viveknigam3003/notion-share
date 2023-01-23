@@ -69,8 +69,7 @@ const Content = () => {
       </Group>
       <Text className={classes.footer}>
         Built by{" "}
-        <a href="https://www.linkedin.com/in/viveknigam3003">Vivek Nigam</a> for{" "}
-        <a href="https://www.oslash.com/">OSlash</a>
+        <a href="https://www.linkedin.com/in/viveknigam3003">Vivek Nigam</a>
       </Text>
     </Box>
   );
